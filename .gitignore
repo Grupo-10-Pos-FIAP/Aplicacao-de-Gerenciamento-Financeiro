@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+
+# Arquivos de build do Next.js
+.next/
+
+# Arquivos temporários do SWC (compilador do Next.js)
+.swc/
+
+# Variáveis de ambiente (não confie em segredos aqui)
+*.env
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# Arquivos de cache e logs do Next.js
+.next-build-cache/
+out/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDE/Editor
+.vscode/
+*.log

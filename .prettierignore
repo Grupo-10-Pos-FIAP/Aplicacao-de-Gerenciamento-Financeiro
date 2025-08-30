@@ -1,0 +1,12 @@
+.next
+node_modules
+package-lock.json
+yarn.lock
+public
+*.min.js
+*.min.css
+dist
+build
+coverage
+.next-env.d.ts
+next.config.*
