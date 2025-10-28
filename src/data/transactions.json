@@ -1,0 +1,112 @@
+[
+  {
+    "id": "txn_001",
+    "amount": 150.75,
+    "currency": "BRL",
+    "description": "Compra no Supermercado",
+    "date": "2024-01-15T14:30:00Z",
+    "type": "expense",
+    "category": "alimentacao",
+    "status": "completed",
+    "paymentMethod": "credit_card"
+  },
+  {
+    "id": "txn_002",
+    "amount": 2500.00,
+    "currency": "BRL",
+    "description": "Salário",
+    "date": "2024-01-05T08:00:00Z",
+    "type": "income",
+    "category": "salario",
+    "status": "completed",
+    "paymentMethod": "bank_transfer"
+  },
+  {
+    "id": "txn_003",
+    "amount": 89.90,
+    "currency": "BRL",
+    "description": "Netflix",
+    "date": "2024-01-10T00:00:00Z",
+    "type": "expense",
+    "category": "entretenimento",
+    "status": "pending",
+    "paymentMethod": "debit_card"
+  },
+  {
+    "id": "txn_004",
+    "amount": 120.00,
+    "currency": "BRL",
+    "description": "Combustível",
+    "date": "2024-01-12T09:15:00Z",
+    "type": "expense",
+    "category": "transporte",
+    "status": "completed",
+    "paymentMethod": "credit_card"
+  },
+  {
+    "id": "txn_005",
+    "amount": 350.00,
+    "currency": "BRL",
+    "description": "Aluguel",
+    "date": "2024-01-01T00:00:00Z",
+    "type": "expense",
+    "category": "moradia",
+    "status": "completed",
+    "paymentMethod": "bank_transfer"
+  },
+  {
+    "id": "txn_006",
+    "amount": 800.00,
+    "currency": "BRL",
+    "description": "Freelance - Desenvolvimento",
+    "date": "2024-01-20T16:00:00Z",
+    "type": "income",
+    "category": "renda_extra",
+    "status": "completed",
+    "paymentMethod": "pix"
+  },
+  {
+    "id": "txn_007",
+    "amount": 65.50,
+    "currency": "BRL",
+    "description": "Farmácia",
+    "date": "2024-01-08T11:20:00Z",
+    "type": "expense",
+    "category": "saude",
+    "status": "completed",
+    "paymentMethod": "debit_card"
+  },
+  {
+    "id": "txn_008",
+    "amount": 45.00,
+    "currency": "BRL",
+    "description": "Jantar com amigos",
+    "date": "2024-01-14T20:45:00Z",
+    "type": "expense",
+    "category": "alimentacao",
+    "status": "completed",
+    "paymentMethod": "credit_card"
+  },
+  {
+    "id": "txn_009",
+    "amount": 1500.00,
+    "currency": "BRL",
+    "description": "Investimento em ações",
+    "date": "2024-01-03T10:00:00Z",
+    "type": "expense",
+    "category": "investimentos",
+    "status": "completed",
+    "paymentMethod": "bank_transfer"
+  },
+  {
+    "id": "txn_010",
+    "amount": 300.00,
+    "currency": "BRL",
+    "description": "Venda de equipamentos",
+    "date": "2024-01-25T14:10:00Z",
+    "type": "income",
+    "category": "renda_extra",
+    "status": "pending",
+    "paymentMethod": "pix"
+  }
+]
