@@ -70,9 +70,7 @@ const SimpleNavDrawer: React.FC = () => {
     return false;
   };
 
-  const renderNavItem = (item: NavItem, level: number = 0) => {
-    const hasChildren = item.children && item.children.length > 0;
-    const isExpanded = expandedItems.has(item.id);
+  const renderNavItem = (item: NavItem) => {
     const isActive = isItemActive(item);
 
     return (
@@ -110,7 +108,7 @@ const SimpleNavDrawer: React.FC = () => {
 
   return (
     <div className="w-80 h-screen overflow-y-auto flex flex-col">
-      <div className="flex flex-col gap-2 p-6 pb-4">
+      <div className="flex flex-col gap-2 pb-4">
         <Text color="base" variant="h1" className="font-bold">
           Bem-vindo, usuário
         </Text>
