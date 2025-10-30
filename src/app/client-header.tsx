@@ -17,7 +17,7 @@ export default function ClientHeader({
         logo={'/logo-black.svg'}
         avatar={<Avatar />}
       />
-      <main className="min-h-screen flex gap-4 mt-8 ml-20">
+      <main className="min-h-screen flex gap-4 mt-12 ml-20">
         <NavDrawer />
         {children}
       </main>
