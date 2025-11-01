@@ -7,18 +7,19 @@ import {
 } from '@grupo10-pos-fiap/design-system';
 import { getFullFormattedDate } from '@utils/date.utils';
 import { useRouter } from 'next/navigation';
+import ListItem from '@components/ListItem';
 
 interface NavItem {
   id: string;
   label: string;
-  icon: IconProps['name'];
+  icon?: IconProps['name'];
   path?: string;
   children?: NavItem[];
   isActive?: boolean;
 }
 
+
 const SimpleNavDrawer: React.FC = () => {
-  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [activeItem, setActiveItem] = useState<string>('home');
 
   const router = useRouter();
@@ -38,72 +39,16 @@ const SimpleNavDrawer: React.FC = () => {
     },
   ];
 
-  const toggleExpand = (itemId: string) => {
-    setExpandedItems(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(itemId)) {
-        newSet.delete(itemId);
-      } else {
-        newSet.add(itemId);
-      }
-      return newSet;
-    });
-  };
-
   const handleItemClick = (item: NavItem) => {
-    if (item.children) {
-      toggleExpand(item.id);
-    } else {
-      setActiveItem(item.id);
-      console.log('Navegando para:', item.path);
-      router.push(item.path || '/');
-    }
+    setActiveItem(item.id);
+    console.log('Navegando para:', item.path);
+    router.push(item.path || '/');
   };
 
   const isItemActive = (item: NavItem): boolean => {
     if (item.id === activeItem) return true;
 
-    if (item.children) {
-      return item.children.some(child => isItemActive(child));
-    }
-
     return false;
-  };
-
-  const renderNavItem = (item: NavItem) => {
-    const isActive = isItemActive(item);
-
-    return (
-      <div key={item.id} className="w-full">
-        <div
-          className={`flex items-center justify-between w-full mt-2 rounded-lg transition-colors cursor-pointer group ${
-            isActive ? 'text-blue-600' : 'text-gray-700 hover:bg-gray-100'
-          }`}
-          onClick={() => handleItemClick(item)}
-        >
-          <div className="flex items-center gap-3 flex-1">
-            <Icon
-              name={item.icon}
-              size="extra-small"
-              color={isActive ? 'primary' : 'base'}
-            />
-            <Text
-              color={isActive ? 'primary' : 'gray-700'}
-              variant="body"
-              className="font-medium"
-            >
-              {item.label}
-            </Text>
-          </div>
-
-          <Icon
-            name="ChevronRight"
-            size="extra-small"
-            color={isActive ? 'primary' : 'base'}
-          />
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -117,10 +62,18 @@ const SimpleNavDrawer: React.FC = () => {
         </Text>
       </div>
 
-      <div className="flex-1 p-4">
+      <div className="flex-1 pt-4">
         <Divider orientation="horizontal" />
         <div className="flex flex-col gap-1">
-          {navItems.map(item => renderNavItem(item))}
+          {navItems.map(item => (
+            <ListItem
+              key={item.id}
+              label={item.label}
+              icon={item.icon}
+              isActive={isItemActive(item)}
+              onClick={() => handleItemClick(item)}
+            />
+          ))}
         </div>
       </div>
     </div>
