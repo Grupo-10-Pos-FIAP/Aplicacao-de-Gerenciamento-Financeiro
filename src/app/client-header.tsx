@@ -12,15 +12,15 @@ export default function ClientHeader({
 }) {
 
   return (
-    <React.Fragment>
+    <>
       <Header
         logo={'/logo-black.svg'}
         avatar={<Avatar />}
       />
-      <main className="min-h-screen flex gap-4 mt-12 ml-20">
+      <main className="flex max-sm:flex-col lg:gap-6 max-lg:gap-4 mt-30 lg:mx-20">
         <NavDrawer />
         {children}
       </main>
-    </React.Fragment>
+    </>
   );
 }

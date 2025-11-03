@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${roboto.variable} ${robotoMono.variable} antialiased`}>
+      <body className={`${roboto.variable} ${robotoMono.variable}`}>
         <Theme>
           <ClientHeader>
             {children}
