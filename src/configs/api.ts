@@ -6,7 +6,7 @@ const getApiBaseUrl = (): string => {
   }
   
   if (process.env.NODE_ENV === 'development') {
-    const defaultDevUrl = 'http://localhost:3001';
+    const defaultDevUrl = 'http://localhost:3003';
     if (typeof window === 'undefined') {
       console.warn(
         '⚠️ NEXT_PUBLIC_API_URL não definida. Usando fallback:',
@@ -29,7 +29,7 @@ export const API_CONFIG = {
   BASE_URL: getApiBaseUrl(),
   ENDPOINTS: {
     TRANSACTIONS: '/transactions',
-    TRANSACTION_BY_ID: (id: number | string) => `/transactions/${id}`,
+    TRANSACTION_BY_ID: (id: string) => `/transactions/${id}`,
   },
   TIMEOUT: 10000,
 } as const;
