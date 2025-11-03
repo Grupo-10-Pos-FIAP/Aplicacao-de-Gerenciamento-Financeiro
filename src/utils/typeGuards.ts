@@ -6,13 +6,13 @@ export function isTransactionValid(
   return (
     transaction !== null &&
     transaction !== undefined &&
-    typeof transaction.id === 'string' &&
-    transaction.id.length > 0 &&
+    typeof transaction.id === 'number' &&
+    transaction.id > 0 &&
     typeof transaction.status === 'string'
   );
 }
 
-export function isTransactionId(id: unknown): id is string {
-  return typeof id === 'string' && id.length > 0;
+export function isTransactionId(id: unknown): id is number {
+  return typeof id === 'number' && id > 0;
 }
 

@@ -10,7 +10,7 @@ interface UseTransactionsReturn {
   loading: boolean;
   error: string | null;
   fetchTransactions: () => Promise<void>;
-  deleteTransaction: (id: string) => Promise<void>;
+  deleteTransaction: (id: number) => Promise<void>;
   refreshTransactions: () => Promise<void>;
   clearError: () => void;
 }
@@ -33,7 +33,7 @@ export function useTransactions(
   const loading = listLoading || isDeleting;
   const error = deleteError || listError;
 
-  const deleteTransaction = useCallback(async (id: string) => {
+  const deleteTransaction = useCallback(async (id: number) => {
     setIsDeleting(true);
     setDeleteError(null);
 

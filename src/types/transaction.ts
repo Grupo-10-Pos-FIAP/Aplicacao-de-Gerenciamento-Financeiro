@@ -21,7 +21,7 @@ export type Category =
   | 'outros';
 
 export interface Transaction {
-  id: string;
+  id: number;
   amount: number;
   currency: string;
   description: string;

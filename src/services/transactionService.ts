@@ -65,7 +65,7 @@ export async function getTransactions(): Promise<Transaction[]> {
 }
 
 export async function getTransactionById(
-  id: string
+  id: number
 ): Promise<Transaction | null> {
   try {
     const response = await fetchWithTimeout(
@@ -87,13 +87,14 @@ export async function getTransactionById(
       );
     }
 
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     handleFetchError(error);
   }
 }
 
-export async function deleteTransaction(id: string): Promise<void> {
+export async function deleteTransaction(id: number): Promise<void> {
   try {
     const response = await fetchWithTimeout(
       `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTION_BY_ID(id)}`,
@@ -114,6 +115,149 @@ export async function deleteTransaction(id: string): Promise<void> {
       );
     }
   } catch (error) {
+    handleFetchError(error);
+  }
+}
+
+export interface CreateTransactionInput
+  extends Omit<Transaction, 'id'> {
+  id?: number;
+}
+
+export async function createTransaction(
+  transaction: CreateTransactionInput
+): Promise<Transaction> {
+  try {
+    const response = await fetchWithTimeout(
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTIONS}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(transaction),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      
+      if (response.status === 400) {
+        throw new TransactionDeleteError(
+          errorData.message || 'Dados inválidos fornecidos para criação da transação',
+          'VALIDATION_ERROR',
+          response.status
+        );
+      }
+      
+      throw new TransactionDeleteError(
+        `Erro ao criar transação: ${response.statusText}`,
+        'CREATE_ERROR',
+        response.status
+      );
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof TransactionDeleteError || error instanceof NetworkError) {
+      throw error;
+    }
+    handleFetchError(error);
+  }
+}
+
+export interface UpdateTransactionInput
+  extends Partial<Omit<Transaction, 'id'>> {
+  id: number;
+}
+
+export async function updateTransaction(
+  id: number,
+  transaction: UpdateTransactionInput
+): Promise<Transaction> {
+  try {
+    const response = await fetchWithTimeout(
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTION_BY_ID(id)}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(transaction),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      
+      if (response.status === 404) {
+        throw new NotFoundError();
+      }
+      
+      if (response.status === 400) {
+        throw new TransactionDeleteError(
+          errorData.message || 'Dados inválidos fornecidos para atualização da transação',
+          'VALIDATION_ERROR',
+          response.status
+        );
+      }
+      
+      throw new TransactionDeleteError(
+        `Erro ao atualizar transação: ${response.statusText}`,
+        'UPDATE_ERROR',
+        response.status
+      );
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof TransactionDeleteError || error instanceof NetworkError || error instanceof NotFoundError) {
+      throw error;
+    }
+    handleFetchError(error);
+  }
+}
+
+export async function patchTransaction(
+  id: number,
+  partialTransaction: Partial<Omit<Transaction, 'id'>>
+): Promise<Transaction> {
+  try {
+    const response = await fetchWithTimeout(
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTION_BY_ID(id)}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(partialTransaction),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      
+      if (response.status === 404) {
+        throw new NotFoundError();
+      }
+      
+      if (response.status === 400) {
+        throw new TransactionDeleteError(
+          errorData.message || 'Dados inválidos fornecidos para atualização parcial da transação',
+          'VALIDATION_ERROR',
+          response.status
+        );
+      }
+      
+      throw new TransactionDeleteError(
+        `Erro ao atualizar transação: ${response.statusText}`,
+        'UPDATE_ERROR',
+        response.status
+      );
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof TransactionDeleteError || error instanceof NetworkError || error instanceof NotFoundError) {
+      throw error;
+    }
     handleFetchError(error);
   }
 }
