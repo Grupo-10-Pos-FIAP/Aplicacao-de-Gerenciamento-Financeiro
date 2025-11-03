@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="html">
+    <html lang="pt-BR">
       <body className={`${roboto.variable} ${robotoMono.variable} antialiased`}>
         <Theme>{children}</Theme>
       </body>
