@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+
 import {
   Divider,
-  Icon,
   IconProps,
   Text,
   ListItem,
   Tabs,
 } from '@grupo10-pos-fiap/design-system';
 import { getFullFormattedDate } from '@utils/date.utils';
-import { useRouter, usePathname } from 'next/navigation';
-import Home from '@app/page';
-import Transactions from '@app/transaction/page';
 
 interface NavItem {
   id: string;
@@ -56,9 +54,7 @@ const SimpleNavDrawer: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Sincroniza o estado com a rota atual - CORREÇÃO AQUI
   useEffect(() => {
-    // Verifica se o pathname inclui a rota de transaction
     if (pathname.includes('/transaction')) {
       setActiveItem('transaction');
       setSelectedTab('tab2');
@@ -69,7 +65,6 @@ const SimpleNavDrawer: React.FC = () => {
   }, [pathname]);
 
   const handleItemClick = (item: NavItem) => {
-    // Apenas para desktop - muda a rota
     if (!isMobile) {
       setActiveItem(item.id);
       console.log('Navegando para:', item.path);
@@ -78,7 +73,6 @@ const SimpleNavDrawer: React.FC = () => {
   };
 
   const handleTabChange = (tabValue: string) => {
-    // Apenas para mobile - muda a rota
     if (isMobile) {
       setSelectedTab(tabValue);
 
@@ -96,7 +90,6 @@ const SimpleNavDrawer: React.FC = () => {
     return item.id === activeItem;
   };
 
-  // Renderização para MOBILE - usa apenas tabs com roteamento
   if (isMobile) {
     return (
       <div className='shrink-0'>
@@ -110,10 +103,8 @@ const SimpleNavDrawer: React.FC = () => {
     );
   }
 
-  // Renderização para DESKTOP - usa navegação lateral + roteamento
   return (
     <div className="flex h-screen">
-      {/* Sidebar de navegação */}
       <div className="w-64 shrink-0">
         <div className="flex flex-col gap-2 p-4 pb-4">
           <Text color="base" variant="h1" weight="semibold">

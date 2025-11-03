@@ -3,7 +3,6 @@ import {
   IconButton,
   IconProps,
   Input,
-  Text,
 } from '@grupo10-pos-fiap/design-system';
 import React from 'react';
 
@@ -24,7 +23,7 @@ const ContactListItem: React.FC<ContactListItemProps> = ({
   onToggleFavorite,
 }) => {
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Impede que o clique propague para o item
+    e.stopPropagation();
     onToggleFavorite?.();
   };
 

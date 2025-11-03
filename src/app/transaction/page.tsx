@@ -1,5 +1,6 @@
 'use client';
-import ContactListItem from '@components/ContactListItem';
+import React, { useState } from 'react';
+import {newAccount, NewAccountProps } from '@const/newAccount';
 import {
   Dropdown,
   Text,
@@ -10,25 +11,9 @@ import {
   Input,
   ListItem,
 } from '@grupo10-pos-fiap/design-system';
-import React, { useState } from 'react';
 
-interface NewAccountProps {
-  id: string;
-  label: string;
-  children?: NewAccountProps[];
-  isActive?: boolean;
-}
+import ContactListItem from '@components/ContactListItem';
 
-const newAccount: NewAccountProps[] = [
-  {
-    id: 'mesma-titularidade',
-    label: 'Mesma Titularidade',
-  },
-  {
-    id: 'outra-titularidade',
-    label: 'Outra Titularidade',
-  },
-];
 
 const Transactions: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<string>('');

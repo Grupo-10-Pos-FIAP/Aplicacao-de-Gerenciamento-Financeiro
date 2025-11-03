@@ -4,7 +4,6 @@ import {
   Dropdown,
   Text,
   Tabs,
-  Icon,
   Divider,
   Button,
   Input,
