@@ -6,18 +6,19 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "database": "json-server src/data/transactions.json --port 3003",
+    "server": "json-server --watch --port 3001 --host 0.0.0.0 src/mocks/db.json",
+    "server:routes": "json-server --watch --port 3001 --host 0.0.0.0 --routes src/mocks/routes.json src/mocks/db.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix --max-warnings=0"
   },
   "dependencies": {
+    "@grupo10-pos-fiap/design-system": "^1.0.5",
     "@radix-ui/themes": "^3.2.1",
-    "json-server": "^1.0.0-beta.3",
     "next": "15.5.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -29,6 +30,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "eslint-config-prettier": "^10.1.8",
+    "json-server": "^0.17.4",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.14",

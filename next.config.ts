@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
+  transpilePackages: ['@grupo10-pos-fiap/design-system'],
 };
 
 export default nextConfig;
