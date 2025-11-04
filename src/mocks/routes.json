@@ -3,5 +3,5 @@
   "/api/transactions/:id": "/transactions/:id",
   "/api/contacts": "/contacts",
   "/api/contacts/:id": "/contacts/:id",
-  "/api/transaction-types": "/transactionTypes"
+  "/api/transaction-types": "/transaction-types"
 }
