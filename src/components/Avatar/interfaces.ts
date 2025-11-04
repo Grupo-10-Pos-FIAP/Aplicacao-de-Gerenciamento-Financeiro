@@ -1,4 +1,4 @@
-export interface UserMenuProps {
+export interface AvatarProps {
   id: number;
   name: string;
   github: string;
