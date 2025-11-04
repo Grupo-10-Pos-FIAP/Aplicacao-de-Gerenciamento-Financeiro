@@ -1,12 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true
   },
   transpilePackages: ['@grupo10-pos-fiap/design-system'],
+  // Configuração para redirecionar chamadas de API para o json-server em desenvolvimento
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3001/api/:path*', // URL do seu json-server
+      },
+    ];
+  },
 };
 
 export default nextConfig;

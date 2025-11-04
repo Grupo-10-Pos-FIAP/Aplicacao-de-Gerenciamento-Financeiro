@@ -1,114 +1,166 @@
 {
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Maria Silva",
+      "favorite": true
+    },
+    {
+      "id": 2,
+      "name": "João Santos",
+      "favorite": false
+    },
+    {
+      "id": 3,
+      "name": "Ana Oliveira",
+      "favorite": true
+    },
+    {
+      "id": 4,
+      "name": "Pedro Costa",
+      "favorite": false
+    },
+    {
+      "id": 5,
+      "name": "Carla Rodrigues",
+      "favorite": true
+    },
+    {
+      "id": 6,
+      "name": "Lucas Almeida",
+      "favorite": false
+    },
+    {
+      "id": 7,
+      "name": "Fernanda Lima",
+      "favorite": true
+    },
+    {
+      "id": 8,
+      "name": "Rafael Gomes",
+      "favorite": false
+    },
+    {
+      "id": 9,
+      "name": "Juliana Ferreira",
+      "favorite": true
+    },
+    {
+      "id": 10,
+      "name": "Bruno Martins",
+      "favorite": false
+    }
+  ],
   "transactions": [
-  {
-    "id": 1,
-    "amount": 150.75,
-    "currency": "BRL",
-    "description": "Compra no Supermercado",
-    "date": "2024-01-15T14:30:00Z",
-    "type": "expense",
-    "category": "alimentacao",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 2,
-    "amount": 2500.00,
-    "currency": "BRL",
-    "description": "Salário",
-    "date": "2024-01-05T08:00:00Z",
-    "type": "income",
-    "category": "salario",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 3,
-    "amount": 89.90,
-    "currency": "BRL",
-    "description": "Netflix",
-    "date": "2024-01-10T00:00:00Z",
-    "type": "expense",
-    "category": "entretenimento",
-    "status": "pending",
-    "paymentMethod": "debit_card"
-  },
-  {
-    "id": 4,
-    "amount": 120.00,
-    "currency": "BRL",
-    "description": "Combustível",
-    "date": "2024-01-12T09:15:00Z",
-    "type": "expense",
-    "category": "transporte",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 5,
-    "amount": 350.00,
-    "currency": "BRL",
-    "description": "Aluguel",
-    "date": "2024-01-01T00:00:00Z",
-    "type": "expense",
-    "category": "moradia",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 6,
-    "amount": 800.00,
-    "currency": "BRL",
-    "description": "Freelance - Desenvolvimento",
-    "date": "2024-01-20T16:00:00Z",
-    "type": "income",
-    "category": "renda_extra",
-    "status": "completed",
-    "paymentMethod": "pix"
-  },
-  {
-    "id": 7,
-    "amount": 65.50,
-    "currency": "BRL",
-    "description": "Farmácia",
-    "date": "2024-01-08T11:20:00Z",
-    "type": "expense",
-    "category": "saude",
-    "status": "completed",
-    "paymentMethod": "debit_card"
-  },
-  {
-    "id": 8,
-    "amount": 45.00,
-    "currency": "BRL",
-    "description": "Jantar com amigos",
-    "date": "2024-01-14T20:45:00Z",
-    "type": "expense",
-    "category": "alimentacao",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 9,
-    "amount": 1500.00,
-    "currency": "BRL",
-    "description": "Investimento em ações",
-    "date": "2024-01-03T10:00:00Z",
-    "type": "expense",
-    "category": "investimentos",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 10,
-    "amount": 300.00,
-    "currency": "BRL",
-    "description": "Venda de equipamentos",
-    "date": "2024-01-25T14:10:00Z",
-    "type": "income",
-    "category": "renda_extra",
-    "status": "pending",
-    "paymentMethod": "pix"
-  }
-]
+    {
+      "id": 1,
+      "amount": 150.75,
+      "currency": "BRL",
+      "description": "Compra no Supermercado",
+      "date": "2024-01-15T14:30:00Z",
+      "type": "expense",
+      "category": "alimentacao",
+      "status": "completed",
+      "paymentMethod": "credit_card"
+    },
+    {
+      "id": 2,
+      "amount": 2500.0,
+      "currency": "BRL",
+      "description": "Salário",
+      "date": "2024-01-05T08:00:00Z",
+      "type": "income",
+      "category": "salario",
+      "status": "completed",
+      "paymentMethod": "bank_transfer"
+    },
+    {
+      "id": 3,
+      "amount": 89.9,
+      "currency": "BRL",
+      "description": "Netflix",
+      "date": "2024-01-10T00:00:00Z",
+      "type": "expense",
+      "category": "entretenimento",
+      "status": "pending",
+      "paymentMethod": "debit_card"
+    },
+    {
+      "id": 4,
+      "amount": 120.0,
+      "currency": "BRL",
+      "description": "Combustível",
+      "date": "2024-01-12T09:15:00Z",
+      "type": "expense",
+      "category": "transporte",
+      "status": "completed",
+      "paymentMethod": "credit_card"
+    },
+    {
+      "id": 5,
+      "amount": 350.0,
+      "currency": "BRL",
+      "description": "Aluguel",
+      "date": "2024-01-01T00:00:00Z",
+      "type": "expense",
+      "category": "moradia",
+      "status": "completed",
+      "paymentMethod": "bank_transfer"
+    },
+    {
+      "id": 6,
+      "amount": 800.0,
+      "currency": "BRL",
+      "description": "Freelance - Desenvolvimento",
+      "date": "2024-01-20T16:00:00Z",
+      "type": "income",
+      "category": "renda_extra",
+      "status": "completed",
+      "paymentMethod": "pix"
+    },
+    {
+      "id": 7,
+      "amount": 65.5,
+      "currency": "BRL",
+      "description": "Farmácia",
+      "date": "2024-01-08T11:20:00Z",
+      "type": "expense",
+      "category": "saude",
+      "status": "completed",
+      "paymentMethod": "debit_card"
+    },
+    {
+      "id": 8,
+      "amount": 45.0,
+      "currency": "BRL",
+      "description": "Jantar com amigos",
+      "date": "2024-01-14T20:45:00Z",
+      "type": "expense",
+      "category": "alimentacao",
+      "status": "completed",
+      "paymentMethod": "credit_card"
+    },
+    {
+      "id": 9,
+      "amount": 1500.0,
+      "currency": "BRL",
+      "description": "Investimento em ações",
+      "date": "2024-01-03T10:00:00Z",
+      "type": "expense",
+      "category": "investimentos",
+      "status": "completed",
+      "paymentMethod": "bank_transfer"
+    },
+    {
+      "id": 10,
+      "amount": 300.0,
+      "currency": "BRL",
+      "description": "Venda de equipamentos",
+      "date": "2024-01-25T14:10:00Z",
+      "type": "income",
+      "category": "renda_extra",
+      "status": "pending",
+      "paymentMethod": "pix"
+    }
+  ]
 }
