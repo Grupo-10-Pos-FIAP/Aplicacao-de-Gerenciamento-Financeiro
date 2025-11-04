@@ -1,36 +1,38 @@
-import { useState, useEffect, useCallback } from 'react';
-
-interface TransactionType {
-  id: number;
-  label: string;
-  value: string;
-}
+import { useState, useCallback } from 'react';
+import { getTransactionTypes } from '@/services/transactionTypeService';
+import type { TransactionType } from '@/types/transactionType';
 
 export const useTransactionTypes = () => {
   const [transactionTypes, setTransactionTypes] = useState<TransactionType[]>(
     []
   );
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchTransactionTypes = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/transaction-types');
-      if (!response.ok) throw new Error('Falha ao buscar tipos de transação');
-      const data: TransactionType[] = await response.json();
+      const data = await getTransactionTypes();
       setTransactionTypes(data);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Ocorreu um erro'));
+      setError(
+        err instanceof Error ? err.message : 'Ocorreu um erro desconhecido.'
+      );
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  useEffect(() => {
-    fetchTransactionTypes();
-  }, [fetchTransactionTypes]);
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
 
-  return { transactionTypes, isLoading, error };
+  return {
+    transactionTypes,
+    isLoading,
+    error,
+    fetchTransactionTypes,
+    clearError,
+  };
 };

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { NewContactProps } from '@const/newContact';
+import { getContacts, updateContactFavorite } from '@/services/contactService';
 
 export const useContacts = () => {
   const [contacts, setContacts] = useState<NewContactProps[]>([]);
@@ -10,18 +11,7 @@ export const useContacts = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/contacts');
-      if (!response.ok) {
-        throw new Error('Falha ao buscar contatos');
-      }
-      const data = await response.json();
-      const formattedContacts = data.map(
-        (contact: { id: number; name: string; favorite: boolean }) => ({
-          id: String(contact.id),
-          label: contact.name,
-          favorite: contact.favorite,
-        })
-      );
+      const formattedContacts = await getContacts();
       setContacts(formattedContacts);
     } catch (err) {
       setError(
@@ -41,27 +31,16 @@ export const useContacts = () => {
     const contact = contacts.find(c => c.id === contactId);
     if (!contact) return;
 
-    const updatedContact = {
-      ...contact,
-      label: undefined,
-      favorite: !contact.favorite,
-      name: contact.label,
-    };
+    const newFavoriteStatus = !contact.favorite;
 
     try {
-      const response = await fetch(`/api/contacts/${contactId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedContact),
-      });
+      await updateContactFavorite(contactId, newFavoriteStatus, contact.label);
 
-      if (response.ok) {
-        setContacts(prevContacts =>
-          prevContacts.map(c =>
-            c.id === contactId ? { ...c, favorite: !c.favorite } : c
-          )
-        );
-      }
+      setContacts(prevContacts =>
+        prevContacts.map(c =>
+          c.id === contactId ? { ...c, favorite: newFavoriteStatus } : c
+        )
+      );
     } catch (error) {
       console.error('Erro ao atualizar favorito:', error);
     }

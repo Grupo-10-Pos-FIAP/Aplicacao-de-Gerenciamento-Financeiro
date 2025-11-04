@@ -1,41 +1,11 @@
-import { API_CONFIG } from '@configs/api';
+import { API_CONFIG } from './api';
 import type { Transaction } from '@/types/transaction';
 import {
-  NetworkError,
   NotFoundError,
   TransactionDeleteError,
+  TransactionCreateError,
 } from '@/utils/errors';
-
-function handleFetchError(error: unknown): never {
-  if (error instanceof Error && 'code' in error) {
-    throw error;
-  }
-
-  if (error instanceof Error && error.name === 'AbortError') {
-    throw new NetworkError('Tempo de espera excedido.');
-  }
-
-  throw new NetworkError(
-    'Erro de conexão. Verifique sua internet e tente novamente.'
-  );
-}
-
-async function fetchWithTimeout(
-  url: string,
-  options: RequestInit
-): Promise<Response> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
-
-  try {
-    const response = await fetch(url, { ...options, signal: controller.signal });
-    clearTimeout(timeoutId);
-    return response;
-  } catch (error) {
-    clearTimeout(timeoutId);
-    throw error;
-  }
-}
+import { handleFetchError, fetchWithTimeout } from './apiUtils';
 
 export async function getTransactions(): Promise<Transaction[]> {
   try {
@@ -48,9 +18,7 @@ export async function getTransactions(): Promise<Transaction[]> {
     );
 
     if (!response.ok) {
-      throw new NetworkError(
-        `Erro ao buscar transações: ${response.statusText}`
-      );
+      throw new Error(`Erro ao buscar transações: ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -59,6 +27,33 @@ export async function getTransactions(): Promise<Transaction[]> {
     }
 
     return data;
+  } catch (error) {
+    handleFetchError(error);
+  }
+}
+
+export async function createTransaction(
+  transactionData: Omit<Transaction, 'id'>
+): Promise<Transaction> {
+  try {
+    const response = await fetchWithTimeout(
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTIONS}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(transactionData),
+      }
+    );
+
+    if (!response.ok) {
+      throw new TransactionCreateError(
+        'Erro ao criar transação',
+        'CREATE_ERROR',
+        response.status
+      );
+    }
+
+    return await response.json();
   } catch (error) {
     handleFetchError(error);
   }
