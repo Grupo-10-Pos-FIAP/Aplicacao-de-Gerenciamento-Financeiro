@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto, Roboto_Mono } from 'next/font/google';
 import { Theme } from '@radix-ui/themes';
 import './globals.css';
+import ClientHeader from './client-header';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -30,8 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${roboto.variable} ${robotoMono.variable} antialiased`}>
-        <Theme>{children}</Theme>
+      <body className={`${roboto.variable} ${robotoMono.variable}`}>
+        <Theme>
+          <ClientHeader>
+            {children}
+          </ClientHeader>
+        </Theme>
       </body>
     </html>
   );

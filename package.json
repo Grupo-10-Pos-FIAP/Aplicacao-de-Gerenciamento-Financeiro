@@ -17,6 +17,7 @@
     "@grupo10-pos-fiap/design-system": "^1.0.5",
     "@radix-ui/themes": "^3.2.1",
     "next": "15.5.2",
+    "radix-ui": "^1.4.3",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
