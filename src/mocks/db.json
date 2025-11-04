@@ -9,7 +9,8 @@
     "type": "expense",
     "category": "alimentacao",
     "status": "completed",
-    "paymentMethod": "credit_card"
+    "paymentMethod": "credit_card",
+    "originator": "Bruna Maria"
   },
   {
     "id": 2,

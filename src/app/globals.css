@@ -17,3 +17,13 @@ body {
   font-size: 16px;
   color: #404040;
 }
+
+.icon-btn--transparent {
+  color: #F4F4F4 !important; 
+}
+
+
+
+.dropdown-default-trigger {
+  min-width: 250px !important;
+}

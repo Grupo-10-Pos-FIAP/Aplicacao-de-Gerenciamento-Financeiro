@@ -10,6 +10,10 @@ import {
 } from '@grupo10-pos-fiap/design-system';
 import { getFullFormattedDate } from '@utils/date.utils';
 
+interface SimpleNavDrawerProps {
+  userName: string;
+}
+
 interface NavItem {
   id: string;
   label: string;
@@ -19,7 +23,7 @@ interface NavItem {
   isActive?: boolean;
 }
 
-const SimpleNavDrawer: React.FC = () => {
+const SimpleNavDrawer = ({ userName }: SimpleNavDrawerProps) => {
   const [activeItem, setActiveItem] = useState<string>('home');
   const [selectedTab, setSelectedTab] = useState<string>('tab1');
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -108,7 +112,7 @@ const SimpleNavDrawer: React.FC = () => {
       <div className="w-64 shrink-0">
         <div className="flex flex-col gap-2 p-4 pb-4">
           <Text color="base" variant="h1" weight="semibold">
-            Bem-vindo, usuário
+            Bem-vindo, {userName}
           </Text>
           <Text color="gray700" variant="small">
             {getFullFormattedDate()}
