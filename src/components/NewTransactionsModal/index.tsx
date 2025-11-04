@@ -103,7 +103,7 @@ const NewTransactionsModal: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-full lg:h-3/4 lg:p-8"
+      className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-full lg:p-8"
     >
       <Text variant="h2" weight="semibold">
         Nova transferência
@@ -151,7 +151,7 @@ const NewTransactionsModal: React.FC = () => {
                 onToggleFavorite={() => toggleFavorite(item.id)}
               />
             ))}
-            {/* Mensagem quando não há favoritos */}
+            {/*  quando não há favoritos */}
             {favoriteContacts.length === 0 && (
               <div className="text-center text-gray-500 py-4">
                 Nenhum contato favorito encontrado
