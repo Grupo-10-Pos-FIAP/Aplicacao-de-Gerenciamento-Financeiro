@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import type { Transaction } from '@/types/transaction';
 import { canDeleteTransaction } from '@/utils/validators';
 import { getErrorMessage } from '@/utils/errors';
-import { DELETE_TRANSACTION_MESSAGES } from '@/components/DeleteTransactionModal/DeleteTransactionModal.constants';
+import { DELETE_TRANSACTION_MESSAGES } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal.constants';
 
 interface UseDeleteTransactionOptions {
   onSuccess?: () => void;
@@ -58,7 +58,6 @@ export function useDeleteTransaction(
     if (!transaction || !canDelete || isDeleting) return;
 
     setIsDeleting(true);
-    // Limpa mensagens anteriores ao iniciar
     clearMessages();
 
     try {
@@ -68,7 +67,6 @@ export function useDeleteTransaction(
 
       setSuccess(successMessage);
 
-      // A responsabilidade de fechar o modal/limpar a mensagem agora é do componente
       onSuccess?.();
     } catch (err) {
       if (!isMountedRef.current) return;

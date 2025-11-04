@@ -8,7 +8,7 @@ import {
   ListItem,
   Tabs,
 } from '@grupo10-pos-fiap/design-system';
-import { getFullFormattedDate } from '@utils/date.utils';
+import { getFullFormattedDate } from '@utils/formatters/date.utils';
 
 interface SimpleNavDrawerProps {
   userName: string;

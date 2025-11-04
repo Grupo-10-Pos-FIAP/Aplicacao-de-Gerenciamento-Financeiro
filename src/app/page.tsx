@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Avatar } from '@components/Avatar';
 import { AvatarProps } from '@components/Avatar/interfaces';
 import { Card, Icon, IconButton } from '@grupo10-pos-fiap/design-system';
-import NewTransactionsModal from '@components/NewTransactionsModal';
+import NewTransactionsModal from '@app/transaction/components/NewTransactionsModal';
 
 export default function Home() {
   const [visible, setVisible] = useState(true);

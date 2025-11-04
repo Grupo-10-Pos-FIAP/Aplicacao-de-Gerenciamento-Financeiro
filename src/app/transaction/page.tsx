@@ -16,11 +16,11 @@ import {
 import ContactListItem from '@/components/ContactListItem';
 import { useContacts } from '@/hooks/useContacts';
 import type { Category } from '@/types/transaction';
-import { useTransactionTypes } from '@/hooks/useTransactionTypes';
+import { useTransactionTypes } from '@/app/transaction/hooks/useTransactionTypes';
 import {
   useTransactionFormSubmission,
   TransactionFormData,
-} from '@/hooks/useTransactionFormSubmission';
+} from '@app/transaction/hooks/useTransactionFormSubmission';
 
 const Transactions: React.FC = () => {
   const [formData, setFormData] = useState<
