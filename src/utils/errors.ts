@@ -24,7 +24,7 @@ export class TransactionError extends ApiError {
 
 export class TransactionCreateError extends TransactionError {
   constructor(
-    message: string = 'Erro ao criar transação.',
+    message: string = 'Erro ao criar transferência.',
     code: string = 'CREATE_ERROR',
     statusCode?: number
   ) {
@@ -36,7 +36,7 @@ export class TransactionCreateError extends TransactionError {
 
 export class TransactionDeleteError extends TransactionError {
   constructor(
-    message: string = 'Erro ao deletar transação.',
+    message: string = 'Erro ao deletar transferência.',
     code: string = 'DELETE_ERROR',
     statusCode?: number
   ) {
@@ -47,7 +47,7 @@ export class TransactionDeleteError extends TransactionError {
 }
 
 export class NotFoundError extends ApiError {
-  constructor(message: string = 'Transação não encontrada.') {
+  constructor(message: string = 'Transferência não encontrada.') {
     super(message, 'NOT_FOUND', 404);
     this.name = 'NotFoundError';
     Object.setPrototypeOf(this, NotFoundError.prototype);
@@ -66,7 +66,7 @@ export class NetworkError extends ApiError {
 
 export class UnauthorizedDeleteError extends TransactionDeleteError {
   constructor(
-    message: string = 'Esta transação não pode ser deletada pois já foi finalizada.'
+    message: string = 'Esta transferência não pode ser deletada pois já foi finalizada.'
   ) {
     super(message, 'UNAUTHORIZED_DELETE', 403);
     this.name = 'UnauthorizedDeleteError';
@@ -76,7 +76,7 @@ export class UnauthorizedDeleteError extends TransactionDeleteError {
 
 export class TransactionFetchError extends TransactionError {
   constructor(
-    message: string = 'Erro ao buscar transação.',
+    message: string = 'Erro ao buscar transferência.',
     code: string = 'FETCH_ERROR',
     statusCode?: number
   ) {
@@ -84,4 +84,14 @@ export class TransactionFetchError extends TransactionError {
     this.name = 'TransactionFetchError';
     Object.setPrototypeOf(this, TransactionFetchError.prototype);
   }
+}
+
+export function getErrorMessage(error: unknown): string {
+  if (error instanceof ApiError) {
+    return error.message;
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return 'Ocorreu um erro desconhecido. Por favor, tente novamente mais tarde.';
 }

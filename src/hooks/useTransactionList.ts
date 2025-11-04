@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { getTransactions } from '@/services/transactionService';
+import { getErrorMessage } from '@/utils/errors';
 import type { Transaction } from '@/types/transaction';
 
 interface UseTransactionListReturn {
@@ -29,9 +30,7 @@ export function useTransactionList(
       const data = await getTransactions();
       setTransactions(data);
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Ocorreu um erro desconhecido.';
-      setError(errorMessage);
+      setError(getErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -54,4 +53,3 @@ export function useTransactionList(
     clearError,
   };
 }
-

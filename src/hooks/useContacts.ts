@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { NewContactProps } from '@/types/newContact';
 import { getContacts, updateContactFavorite } from '@/services/contactService';
+import { getErrorMessage } from '@/utils/errors';
 
 export const useContacts = () => {
   const [contacts, setContacts] = useState<NewContactProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchContacts = useCallback(async () => {
     setIsLoading(true);
@@ -14,9 +15,7 @@ export const useContacts = () => {
       const formattedContacts = await getContacts();
       setContacts(formattedContacts);
     } catch (err) {
-      setError(
-        err instanceof Error ? err : new Error('Ocorreu um erro desconhecido')
-      );
+      setError(getErrorMessage(err));
       console.error('Erro ao buscar contatos:', err);
     } finally {
       setIsLoading(false);

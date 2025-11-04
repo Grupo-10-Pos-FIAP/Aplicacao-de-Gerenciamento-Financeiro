@@ -33,22 +33,25 @@ export function useTransactions(
   const loading = listLoading || isDeleting;
   const error = deleteError || listError;
 
-  const deleteTransaction = useCallback(async (id: string) => {
-    setIsDeleting(true);
-    setDeleteError(null);
+  const deleteTransaction = useCallback(
+    async (id: string) => {
+      setIsDeleting(true);
+      setDeleteError(null);
 
-    try {
-      await deleteTransactionService(id);
-      fetchTransactions();
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Erro ao deletar transação.';
-      setDeleteError(errorMessage);
-      throw err;
-    } finally {
-      setIsDeleting(false);
-    }
-  }, [fetchTransactions]);
+      try {
+        await deleteTransactionService(id);
+        fetchTransactions();
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Erro ao deletar transferência.';
+        setDeleteError(errorMessage);
+        throw err;
+      } finally {
+        setIsDeleting(false);
+      }
+    },
+    [fetchTransactions]
+  );
 
   const clearError = useCallback(() => {
     clearListError();

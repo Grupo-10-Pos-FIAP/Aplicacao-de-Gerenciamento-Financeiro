@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { getTransactionTypes } from '@/services/transactionTypeService';
+import { getErrorMessage } from '@/utils/errors';
 import type { TransactionCategoryOption } from '@/types/transactionType';
 
 export const useTransactionTypes = () => {
@@ -16,9 +17,7 @@ export const useTransactionTypes = () => {
       const data = await getTransactionTypes();
       setTransactionTypes(data);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Ocorreu um erro desconhecido.'
-      );
+      setError(getErrorMessage(err));
     } finally {
       setIsLoading(false);
     }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createTransaction } from '@/services/transactionService';
 import type { Transaction, Category } from '@/types/transaction';
 
+import { getErrorMessage } from '@/utils/errors';
 export interface TransactionFormData {
   transactionType: Category | '';
   selectedAccount: string;
@@ -11,7 +12,7 @@ export interface TransactionFormData {
 
 const validateFormData = (formData: TransactionFormData): string | null => {
   if (!formData.transactionType) {
-    return 'Selecione o tipo de transação';
+    return 'Selecione o tipo de transferência';
   }
   if (!formData.selectedAccount) {
     return 'Selecione uma conta';
@@ -66,18 +67,18 @@ export const useTransactionFormSubmission = (onSuccess?: () => void) => {
       await createTransaction(newTransaction);
       setSnackbar({
         open: true,
-        message: 'Sua transação foi realizada com sucesso.',
+        message: 'Sua transferência foi realizada com sucesso.',
         variant: 'success',
       });
       if (onSuccess) {
         onSuccess();
       }
     } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro desconhecido.';
-      setSnackbar({ open: true, message: errorMessage, variant: 'error' });
+      setSnackbar({
+        open: true,
+        message: getErrorMessage(error),
+        variant: 'error',
+      });
     } finally {
       setIsSubmitting(false);
     }
