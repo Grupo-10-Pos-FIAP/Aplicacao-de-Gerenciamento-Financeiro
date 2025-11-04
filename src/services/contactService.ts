@@ -1,5 +1,5 @@
 import { API_CONFIG } from './api';
-import { NewContactProps } from '@const/newContact';
+import { NewContactProps } from '@/types/newContact';
 import { handleFetchError, fetchWithTimeout } from './apiUtils';
 
 interface ApiContact {

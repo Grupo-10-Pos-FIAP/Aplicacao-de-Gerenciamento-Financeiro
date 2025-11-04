@@ -1,4 +1,4 @@
-export interface TransactionType {
+export interface TransactionCategoryOption {
   id: number;
   label: string;
   value: string;

@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import { getTransactionTypes } from '@/services/transactionTypeService';
-import type { TransactionType } from '@/types/transactionType';
+import type { TransactionCategoryOption } from '@/types/transactionType';
 
 export const useTransactionTypes = () => {
-  const [transactionTypes, setTransactionTypes] = useState<TransactionType[]>(
-    []
-  );
+  const [transactionTypes, setTransactionTypes] = useState<
+    TransactionCategoryOption[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 

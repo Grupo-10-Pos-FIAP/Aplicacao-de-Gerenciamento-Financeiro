@@ -10,12 +10,11 @@ import {
   ListItem,
   Snackbar,
 } from '@grupo10-pos-fiap/design-system';
-import { newAccount, NewAccountProps } from '@const/newAccount';
-import { NewContactProps } from '@const/newContact';
+import { newAccount } from '@/const/newAccount';
+import type { NewAccountProps } from '@/types/newAccount';
+import type { NewContactProps } from '@/types/newContact';
 import { useContacts } from '@/hooks/useContacts';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
-import type { Transaction } from '@/types/transaction';
-import { createTransaction } from '@/services/transactionService';
 
 interface FormData {
   transactionType: string;
@@ -35,12 +34,12 @@ const NewTransactionsModal: React.FC = () => {
   });
 
   const [activeItem, setActiveItem] = useState<string>('');
-  const [snackbar, setSnackbar] = useState<{
-    open: boolean;
-    message: string;
-    variant: 'success' | 'error';
-  }>({ open: false, message: '', variant: 'success' });
-
+  const {
+    isSubmitting,
+    snackbar,
+    setSnackbar,
+    handleSubmit: handleFormSubmit,
+  } = useTransactionFormSubmission();
   const {
     contacts,
     isLoading: isLoadingContacts,
@@ -77,54 +76,6 @@ const NewTransactionsModal: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.transactionType) {
-      alert('Selecione o tipo de transação');
-      return;
-    }
-
-    if (!formData.selectedAccount) {
-      alert('Selecione uma conta');
-      return;
-    }
-
-    if (!formData.amount) {
-      alert('Informe o valor da transferência');
-      return;
-    }
-
-    const newTransaction: Omit<Transaction, 'id'> = {
-      amount: parseFloat(formData.amount),
-      currency: 'BRL',
-      description: `Transferência para conta ${formData.selectedAccount}`,
-      date: new Date().toISOString(), // Usando a data e hora atual
-      type: 'expense',
-      category: formData.transactionType as Transaction['category'],
-      status: 'completed',
-      paymentMethod: formData.transactionType as Transaction['paymentMethod'],
-    };
-
-    try {
-      await createTransaction(newTransaction);
-
-      setSnackbar({
-        open: true,
-        message: 'Sua transação foi realizada com sucesso.',
-        variant: 'success',
-      });
-      // TODO: Limpar o formulário e fechar o modal
-    } catch (error) {
-      console.error('Erro ao submeter transação:', error);
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao realizar a transação.';
-      setSnackbar({ open: true, message, variant: 'error' });
-    }
-  };
-
   const favoriteContacts = contacts.filter(item => item.favorite);
 
   if (isLoadingContacts || isLoadingTypes) {
@@ -142,7 +93,7 @@ const NewTransactionsModal: React.FC = () => {
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={e => handleFormSubmit(e, formData)}
         className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-full lg:p-8"
       >
         <Text variant="h2" weight="semibold">
@@ -228,8 +179,8 @@ const NewTransactionsModal: React.FC = () => {
           required
         />
 
-        <Button type="submit" width={'100%'}>
-          Concluir transação
+        <Button type="submit" width={'100%'} disabled={isSubmitting}>
+          Realizar transferência
         </Button>
       </form>
       <Snackbar

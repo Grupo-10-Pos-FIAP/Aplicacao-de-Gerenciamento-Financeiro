@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { NewContactProps } from '@const/newContact';
+import { NewContactProps } from '@/types/newContact';
 import { getContacts, updateContactFavorite } from '@/services/contactService';
 
 export const useContacts = () => {
