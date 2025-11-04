@@ -169,7 +169,9 @@ const Transactions: React.FC = () => {
                   isActive={isItemActive(item)}
                   isFavorite={item.favorite}
                   onClick={() => handleItemClick(item)}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
+                  onToggleFavorite={() =>
+                    toggleFavorite(item.id, item.favorite)
+                  }
                 />
               ))}
               {favoriteContacts.length === 0 && (
@@ -189,14 +191,16 @@ const Transactions: React.FC = () => {
                   isActive={isItemActive(item)}
                   isFavorite={item.favorite}
                   onClick={() => handleItemClick(item)}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
+                  onToggleFavorite={() =>
+                    toggleFavorite(item.id, item.favorite)
+                  }
                 />
               ))}
             </div>
           </Tabs.Content>
         </Tabs>
 
-        <div className="pt-10">
+        <div className="pt-15">
           <Divider orientation="horizontal" />
         </div>
 

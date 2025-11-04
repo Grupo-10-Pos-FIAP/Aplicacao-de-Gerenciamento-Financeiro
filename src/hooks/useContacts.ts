@@ -1,41 +1,35 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { NewContactProps } from '@/types/newContact';
 import { getContacts, updateContactFavorite } from '@/services/contactService';
-import { getErrorMessage } from '@/utils/errors';
+import { useFetch } from './useFetch';
 
 export const useContacts = () => {
-  const [contacts, setContacts] = useState<NewContactProps[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchContacts = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const formattedContacts = await getContacts();
-      setContacts(formattedContacts);
-    } catch (err) {
-      setError(getErrorMessage(err));
-      console.error('Erro ao buscar contatos:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const {
+    data: contacts,
+    loading: isLoading,
+    error,
+    fetchData: fetchContacts,
+  } = useFetch(getContacts, []);
+  const [localContacts, setLocalContacts] = useState<NewContactProps[]>([]);
 
   useEffect(() => {
     fetchContacts();
   }, [fetchContacts]);
 
-  const toggleFavorite = async (contactId: string) => {
-    const contact = contacts.find(c => c.id === contactId);
+  useEffect(() => {
+    setLocalContacts(contacts);
+  }, [contacts]);
+
+  const toggleFavorite = async (contactId: string, isFavorite: boolean) => {
+    const contact = localContacts.find(c => c.id === contactId);
     if (!contact) return;
 
-    const newFavoriteStatus = !contact.favorite;
+    const newFavoriteStatus = !isFavorite;
 
     try {
       await updateContactFavorite(contactId, newFavoriteStatus, contact.label);
 
-      setContacts(prevContacts =>
+      setLocalContacts(prevContacts =>
         prevContacts.map(c =>
           c.id === contactId ? { ...c, favorite: newFavoriteStatus } : c
         )
@@ -45,5 +39,5 @@ export const useContacts = () => {
     }
   };
 
-  return { contacts, isLoading, error, toggleFavorite };
+  return { contacts: localContacts, isLoading, error, toggleFavorite };
 };

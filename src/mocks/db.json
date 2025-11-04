@@ -194,6 +194,72 @@
       "status": "completed",
       "paymentMethod": "pix-credito",
       "id": 13
+    },
+    {
+      "amount": 500,
+      "currency": "BRL",
+      "description": "Transferência para conta 3",
+      "date": "2025-11-05T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 14
+    },
+    {
+      "amount": 1,
+      "currency": "BRL",
+      "description": "Transferência para conta 10",
+      "date": "2025-11-06T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 15
+    },
+    {
+      "amount": 250,
+      "currency": "BRL",
+      "description": "Transferência para conta 5",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "emprestimo-financiamento",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 16
+    },
+    {
+      "amount": 50,
+      "currency": "BRL",
+      "description": "Transferência para conta 3",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "emprestimo-financiamento",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 17
+    },
+    {
+      "amount": 25,
+      "currency": "BRL",
+      "description": "Transferência para conta 4",
+      "date": "2025-11-10T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 18
+    },
+    {
+      "amount": 550,
+      "currency": "BRL",
+      "description": "Transferência para conta 7",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 19
     }
   ],
   "transaction-types": [

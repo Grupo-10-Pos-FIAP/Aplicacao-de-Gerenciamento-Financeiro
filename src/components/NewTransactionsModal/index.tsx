@@ -15,18 +15,22 @@ import type { NewAccountProps } from '@/types/newAccount';
 import type { NewContactProps } from '@/types/newContact';
 import { useContacts } from '@/hooks/useContacts';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
-import { useTransactionFormSubmission } from '@/hooks/useTransactionFormSubmission';
+import {
+  useTransactionFormSubmission,
+  TransactionFormData,
+} from '@/hooks/useTransactionFormSubmission';
+import type { Category } from '@/types/transaction';
 
-interface FormData {
-  transactionType: string;
+interface LocalFormData extends Omit<TransactionFormData, 'transactionType'> {
   selectedAccount: string;
+  transactionType: Category | '';
   amount: string;
   date: string;
   tab: string;
 }
 
 const NewTransactionsModal: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<LocalFormData>({
     transactionType: '',
     selectedAccount: '',
     amount: '',
@@ -83,7 +87,7 @@ const NewTransactionsModal: React.FC = () => {
     return item.id === activeItem;
   };
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof LocalFormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
@@ -118,7 +122,9 @@ const NewTransactionsModal: React.FC = () => {
           key={dropdownKey}
           placeholder="Selecione o tipo de transferência"
           items={transactionTypes}
-          onValueChange={value => handleInputChange('transactionType', value)}
+          onValueChange={value =>
+            handleInputChange('transactionType', value as Category)
+          }
           width={'100%'}
         />
 
@@ -154,7 +160,9 @@ const NewTransactionsModal: React.FC = () => {
                   isActive={isItemActive(item)}
                   isFavorite={item.favorite}
                   onClick={() => handleItemClick(item)}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
+                  onToggleFavorite={() =>
+                    toggleFavorite(item.id, item.favorite)
+                  }
                 />
               ))}
               {/*  quando não há favoritos */}
@@ -175,14 +183,16 @@ const NewTransactionsModal: React.FC = () => {
                   isActive={isItemActive(item)}
                   isFavorite={item.favorite}
                   onClick={() => handleItemClick(item)}
-                  onToggleFavorite={() => toggleFavorite(item.id)}
+                  onToggleFavorite={() =>
+                    toggleFavorite(item.id, item.favorite)
+                  }
                 />
               ))}
             </div>
           </Tabs.Content>
         </Tabs>
 
-        <div className="pt-10">
+        <div className="pt-15">
           <Divider orientation="horizontal" />
         </div>
 

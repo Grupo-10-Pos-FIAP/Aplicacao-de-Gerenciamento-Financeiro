@@ -23,7 +23,7 @@ const validateFormData = (formData: TransactionFormData): string | null => {
   if (!formData.date) {
     return 'Selecione a data';
   }
-  return null; // No errors
+  return null;
 };
 
 export const useTransactionFormSubmission = (onSuccess?: () => void) => {

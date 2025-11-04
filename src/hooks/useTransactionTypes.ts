@@ -1,31 +1,19 @@
-import { useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { getTransactionTypes } from '@/services/transactionTypeService';
-import { getErrorMessage } from '@/utils/errors';
-import type { TransactionCategoryOption } from '@/types/transactionType';
+import { useFetch } from './useFetch';
 
 export const useTransactionTypes = () => {
-  const [transactionTypes, setTransactionTypes] = useState<
-    TransactionCategoryOption[]
-  >([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    data: transactionTypes,
+    loading: isLoading,
+    error,
+    fetchData: fetchTransactionTypes,
+    clearError,
+  } = useFetch(getTransactionTypes, []);
 
-  const fetchTransactionTypes = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const data = await getTransactionTypes();
-      setTransactionTypes(data);
-    } catch (err) {
-      setError(getErrorMessage(err));
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const clearError = useCallback(() => {
-    setError(null);
-  }, []);
+  useEffect(() => {
+    fetchTransactionTypes();
+  }, [fetchTransactionTypes]);
 
   return {
     transactionTypes,
