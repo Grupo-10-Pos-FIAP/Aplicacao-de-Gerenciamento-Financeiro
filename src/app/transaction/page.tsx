@@ -12,7 +12,8 @@ import {
   ListItem,
 } from '@grupo10-pos-fiap/design-system';
 import ContactListItem from '@/components/ContactListItem';
-import { useContacts } from '@hooks/useContacts';
+import { useContacts } from '@/hooks/useContacts';
+import { useTransactionTypes } from '@/hooks/useTransactionTypes';
 
 interface FormData {
   transactionType: string;
@@ -32,7 +33,17 @@ const Transactions: React.FC = () => {
   });
 
   const [activeItem, setActiveItem] = useState<string>('');
-  const { contacts, isLoading, error, toggleFavorite } = useContacts();
+  const {
+    contacts,
+    isLoading: isLoadingContacts,
+    error: errorContacts,
+    toggleFavorite,
+  } = useContacts();
+  const {
+    transactionTypes,
+    isLoading: isLoadingTypes,
+    error: errorTypes,
+  } = useTransactionTypes();
 
   const handleItemClick = (item: NewAccountProps | NewContactProps) => {
     setActiveItem(item.id);
@@ -87,14 +98,14 @@ const Transactions: React.FC = () => {
 
   const favoriteContacts = contacts.filter(item => item.favorite);
 
-  if (isLoading) {
+  if (isLoadingContacts || isLoadingTypes) {
     return <div className="text-center p-8">Carregando contatos...</div>;
   }
 
-  if (error) {
+  if (errorContacts || errorTypes) {
     return (
       <div className="text-center text-red-500 p-8">
-        Erro ao carregar contatos: {error.message}
+        Erro ao carregar dados: {errorContacts?.message || errorTypes?.message}
       </div>
     );
   }
@@ -112,14 +123,7 @@ const Transactions: React.FC = () => {
         <Dropdown
           label="Valor a ser transferido"
           placeholder="Selecione o tipo de transação"
-          items={[
-            { label: 'Câmbio de Moeda', value: 'cambio-moeda' },
-            { label: 'DOC/TED', value: 'doc-ted' },
-            {
-              label: 'Empréstimo e Financiamento',
-              value: 'emprestimo-financimento',
-            },
-          ]}
+          items={transactionTypes}
           onValueChange={value => handleInputChange('transactionType', value)}
           width={'100%'}
         />
@@ -191,7 +195,7 @@ const Transactions: React.FC = () => {
         </Tabs.Content>
       </Tabs>
 
-      <div className="pt-15">
+      <div className="pt-10">
         <Divider orientation="horizontal" />
       </div>
 

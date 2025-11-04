@@ -162,5 +162,19 @@
       "status": "pending",
       "paymentMethod": "pix"
     }
+  ],
+  "transactionTypes": [
+    { "id": 1, "label": "Pix", "value": "pix" },
+    { "id": 2, "label": "Pix no Crédito", "value": "pix-credito" },
+    { "id": 3, "label": "Câmbio de Moeda", "value": "cambio-moeda" },
+    { "id": 4, "label": "DOC/TED", "value": "doc-ted" },
+    {
+      "id": 5,
+      "label": "Empréstimo e Financiamento",
+      "value": "emprestimo-financiamento"
+    },
+    { "id": 6, "label": "Cartão de Crédito", "value": "cartao-credito" },
+    { "id": 7, "label": "Boleto", "value": "boleto" },
+    { "id": 8, "label": "Depósito em Conta", "value": "deposito-conta" }
   ]
 }
