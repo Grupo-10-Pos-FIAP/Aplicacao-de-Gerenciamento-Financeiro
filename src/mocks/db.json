@@ -65,7 +65,7 @@
     },
     {
       "id": 2,
-      "amount": 2500.0,
+      "amount": 2500,
       "currency": "BRL",
       "description": "Salário",
       "date": "2024-01-05T08:00:00Z",
@@ -87,7 +87,7 @@
     },
     {
       "id": 4,
-      "amount": 120.0,
+      "amount": 120,
       "currency": "BRL",
       "description": "Combustível",
       "date": "2024-01-12T09:15:00Z",
@@ -98,7 +98,7 @@
     },
     {
       "id": 5,
-      "amount": 350.0,
+      "amount": 350,
       "currency": "BRL",
       "description": "Aluguel",
       "date": "2024-01-01T00:00:00Z",
@@ -109,7 +109,7 @@
     },
     {
       "id": 6,
-      "amount": 800.0,
+      "amount": 800,
       "currency": "BRL",
       "description": "Freelance - Desenvolvimento",
       "date": "2024-01-20T16:00:00Z",
@@ -131,7 +131,7 @@
     },
     {
       "id": 8,
-      "amount": 45.0,
+      "amount": 45,
       "currency": "BRL",
       "description": "Jantar com amigos",
       "date": "2024-01-14T20:45:00Z",
@@ -142,7 +142,7 @@
     },
     {
       "id": 9,
-      "amount": 1500.0,
+      "amount": 1500,
       "currency": "BRL",
       "description": "Investimento em ações",
       "date": "2024-01-03T10:00:00Z",
@@ -153,7 +153,7 @@
     },
     {
       "id": 10,
-      "amount": 300.0,
+      "amount": 300,
       "currency": "BRL",
       "description": "Venda de equipamentos",
       "date": "2024-01-25T14:10:00Z",
@@ -161,20 +161,97 @@
       "category": "renda_extra",
       "status": "pending",
       "paymentMethod": "pix"
+    },
+    {
+      "amount": 5000,
+      "currency": "BRL",
+      "description": "Transferência para conta mesma-titularidade",
+      "date": "2025-11-04T03:24:18.088Z",
+      "type": "expense",
+      "category": "pix",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 11
+    },
+    {
+      "amount": 5000,
+      "currency": "BRL",
+      "description": "Transferência para conta mesma-titularidade",
+      "date": "2025-11-04T03:26:07.291Z",
+      "type": "expense",
+      "category": "pix",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 12
+    },
+    {
+      "amount": 5000,
+      "currency": "BRL",
+      "description": "Transferência para conta mesma-titularidade",
+      "date": "2025-11-04T03:30:09.945Z",
+      "type": "expense",
+      "category": "pix",
+      "status": "completed",
+      "paymentMethod": "pix",
+      "id": 13
+    },
+    {
+      "amount": 2500,
+      "currency": "BRL",
+      "description": "Transferência para conta 5",
+      "date": "2025-11-04T04:49:50.598Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix-credito",
+      "id": 14
     }
   ],
-  "transactionTypes": [
-    { "id": 1, "label": "Pix", "value": "pix" },
-    { "id": 2, "label": "Pix no Crédito", "value": "pix-credito" },
-    { "id": 3, "label": "Câmbio de Moeda", "value": "cambio-moeda" },
-    { "id": 4, "label": "DOC/TED", "value": "doc-ted" },
+  "transaction-types": [
     {
-      "id": 5,
+      "id": 1,
+      "label": "Pix",
+      "value": "pix"
+    },
+    {
+      "id": 2,
+      "label": "Pix no Crédito",
+      "value": "pix-credito"
+    },
+    {
+      "id": 3,
       "label": "Empréstimo e Financiamento",
       "value": "emprestimo-financiamento"
     },
-    { "id": 6, "label": "Cartão de Crédito", "value": "cartao-credito" },
-    { "id": 7, "label": "Boleto", "value": "boleto" },
-    { "id": 8, "label": "Depósito em Conta", "value": "deposito-conta" }
+    {
+      "id": 4,
+      "label": "Cartão de Crédito",
+      "value": "cartao-credito"
+    },
+    {
+      "id": 5,
+      "label": "Boleto",
+      "value": "boleto"
+    },
+    {
+      "id": 6,
+      "label": "Depósito em Conta",
+      "value": "deposito-conta"
+    },
+    {
+      "id": 7,
+      "label": "Câmbio de Moeda",
+      "value": "cambio-moeda"
+    },
+    {
+      "id": 8,
+      "label": "DOC/TED",
+      "value": "doc-ted"
+    },
+    {
+      "id": 9,
+      "label": "Transferência entre Contas",
+      "value": "transferencia-contas"
+    }
   ]
 }

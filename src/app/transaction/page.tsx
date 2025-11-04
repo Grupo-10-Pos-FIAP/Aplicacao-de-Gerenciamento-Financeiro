@@ -10,10 +10,12 @@ import {
   Button,
   Input,
   ListItem,
+  Snackbar,
 } from '@grupo10-pos-fiap/design-system';
 import ContactListItem from '@/components/ContactListItem';
 import { useContacts } from '@/hooks/useContacts';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
+import { createTransaction } from '@/services/transactionService';
 
 interface FormData {
   transactionType: string;
@@ -33,6 +35,12 @@ const Transactions: React.FC = () => {
   });
 
   const [activeItem, setActiveItem] = useState<string>('');
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    variant: 'success' | 'error';
+  }>({ open: false, message: '', variant: 'success' });
+
   const {
     contacts,
     isLoading: isLoadingContacts,
@@ -64,7 +72,7 @@ const Transactions: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.transactionType) {
@@ -87,13 +95,34 @@ const Transactions: React.FC = () => {
       return;
     }
 
-    // Aqui você faria a submissão dos dados
-    console.log('Dados do formulário:', formData);
+    const newTransaction = {
+      amount: parseFloat(formData.amount),
+      currency: 'BRL',
+      description: `Transferência para conta ${formData.selectedAccount}`,
+      date: new Date(formData.date).toISOString(),
+      type: 'expense',
+      category: formData.transactionType,
+      status: 'completed',
+      paymentMethod: formData.transactionType,
+    };
 
-    // Lógica para enviar para API, etc.
-    // await api.submitTransaction(formData);
+    try {
+      await createTransaction(newTransaction);
 
-    alert('Transação realizada com sucesso!');
+      setSnackbar({
+        open: true,
+        message: 'Sua transação foi realizada com sucesso.',
+        variant: 'success',
+      });
+      // TODO: Limpar o formulário após o sucesso
+    } catch (error) {
+      console.error('Erro ao submeter transação:', error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Ocorreu um erro ao realizar a transação.';
+      setSnackbar({ open: true, message, variant: 'error' });
+    }
   };
 
   const favoriteContacts = contacts.filter(item => item.favorite);
@@ -111,117 +140,127 @@ const Transactions: React.FC = () => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-auto 2xl:w-1/2 lg:h-3/4 lg:p-8"
-    >
-      <Text variant="h2" weight="semibold">
-        Nova transferência
-      </Text>
-
-      <div className="flex md:flex-row max-sm:flex-col gap-6">
-        <Dropdown
-          label="Valor a ser transferido"
-          placeholder="Selecione o tipo de transação"
-          items={transactionTypes}
-          onValueChange={value => handleInputChange('transactionType', value)}
-          width={'100%'}
-        />
-
-        <Input
-          value={'R$ 5.000,00'}
-          label="Saldo disponível"
-          width={'100%'}
-          disabled
-        />
-      </div>
-
-      <Tabs
-        value={formData.tab}
-        onValueChange={value => handleInputChange('tab', value)}
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-auto 2xl:w-1/2 lg:h-3/4 lg:p-8"
       >
-        <Tabs.List aria-label="Manage your account">
-          <Tabs.Trigger label="Nova Conta" value="tab1" />
-          <Tabs.Trigger label="Favoritos" value="tab2" />
-          <Tabs.Trigger label="Meus Contatos" value="tab3" />
-        </Tabs.List>
+        <Text variant="h2" weight="semibold">
+          Nova transferência
+        </Text>
 
-        <Tabs.Content value="tab1">
-          <div className="flex flex-col pt-6">
-            {newAccount.map(item => (
-              <ListItem
-                key={item.id}
-                label={item.label}
-                isActive={isItemActive(item)}
-                onClick={() => handleItemClick(item)}
-              />
-            ))}
-          </div>
-        </Tabs.Content>
+        <div className="flex md:flex-row max-sm:flex-col gap-6">
+          <Dropdown
+            label="Valor a ser transferido"
+            placeholder="Selecione o tipo de transação"
+            items={transactionTypes}
+            onValueChange={value => handleInputChange('transactionType', value)}
+            width={'100%'}
+          />
 
-        <Tabs.Content value="tab2">
-          <div className="flex flex-col gap-1 pt-6">
-            {favoriteContacts.map(item => (
-              <ContactListItem
-                key={item.id}
-                label={item.label}
-                isActive={isItemActive(item)}
-                isFavorite={item.favorite}
-                onClick={() => handleItemClick(item)}
-                onToggleFavorite={() => toggleFavorite(item.id)}
-              />
-            ))}
-            {favoriteContacts.length === 0 && (
-              <div className="text-center text-gray-500 py-4">
-                Nenhum contato favorito encontrado
-              </div>
-            )}
-          </div>
-        </Tabs.Content>
+          <Input
+            value={'R$ 5.000,00'}
+            label="Saldo disponível"
+            width={'100%'}
+            disabled
+          />
+        </div>
 
-        <Tabs.Content value="tab3">
-          <div className="flex flex-col gap-1 pt-6">
-            {contacts.map(item => (
-              <ContactListItem
-                key={item.id}
-                label={item.label}
-                isActive={isItemActive(item)}
-                isFavorite={item.favorite}
-                onClick={() => handleItemClick(item)}
-                onToggleFavorite={() => toggleFavorite(item.id)}
-              />
-            ))}
-          </div>
-        </Tabs.Content>
-      </Tabs>
+        <Tabs
+          value={formData.tab}
+          onValueChange={value => handleInputChange('tab', value)}
+        >
+          <Tabs.List aria-label="Manage your account">
+            <Tabs.Trigger label="Nova Conta" value="tab1" />
+            <Tabs.Trigger label="Favoritos" value="tab2" />
+            <Tabs.Trigger label="Meus Contatos" value="tab3" />
+          </Tabs.List>
 
-      <div className="pt-10">
-        <Divider orientation="horizontal" />
-      </div>
+          <Tabs.Content value="tab1">
+            <div className="flex flex-col pt-6">
+              {newAccount.map(item => (
+                <ListItem
+                  key={item.id}
+                  label={item.label}
+                  isActive={isItemActive(item)}
+                  onClick={() => handleItemClick(item)}
+                />
+              ))}
+            </div>
+          </Tabs.Content>
 
-      <div className="flex md:flex-row max-sm:flex-col gap-6">
-        <Input
-          label="Data"
-          type="date"
-          value={formData.date}
-          onChange={e => handleInputChange('date', e.target.value)}
-          width={'100%'}
-          required
-        />
-        <Input
-          value={formData.amount}
-          onChange={e => handleInputChange('amount', e.target.value)}
-          label="Valor a ser transferido"
-          type="number"
-          width={'100%'}
-          required
-        />
-      </div>
+          <Tabs.Content value="tab2">
+            <div className="flex flex-col gap-1 pt-6">
+              {favoriteContacts.map(item => (
+                <ContactListItem
+                  key={item.id}
+                  label={item.label}
+                  isActive={isItemActive(item)}
+                  isFavorite={item.favorite}
+                  onClick={() => handleItemClick(item)}
+                  onToggleFavorite={() => toggleFavorite(item.id)}
+                />
+              ))}
+              {favoriteContacts.length === 0 && (
+                <div className="text-center text-gray-500 py-4">
+                  Nenhum contato favorito encontrado
+                </div>
+              )}
+            </div>
+          </Tabs.Content>
 
-      <Button type="submit" width={'100%'}>
-        Concluir transação
-      </Button>
-    </form>
+          <Tabs.Content value="tab3">
+            <div className="flex flex-col gap-1 pt-6">
+              {contacts.map(item => (
+                <ContactListItem
+                  key={item.id}
+                  label={item.label}
+                  isActive={isItemActive(item)}
+                  isFavorite={item.favorite}
+                  onClick={() => handleItemClick(item)}
+                  onToggleFavorite={() => toggleFavorite(item.id)}
+                />
+              ))}
+            </div>
+          </Tabs.Content>
+        </Tabs>
+
+        <div className="pt-10">
+          <Divider orientation="horizontal" />
+        </div>
+
+        <div className="flex md:flex-row max-sm:flex-col gap-6">
+          <Input
+            label="Data"
+            type="date"
+            value={formData.date}
+            onChange={e => handleInputChange('date', e.target.value)}
+            width={'100%'}
+            required
+          />
+          <Input
+            value={formData.amount}
+            onChange={e => handleInputChange('amount', e.target.value)}
+            label="Valor a ser transferido"
+            type="number"
+            width={'100%'}
+            required
+          />
+        </div>
+
+        <Button type="submit" width={'100%'}>
+          Concluir transação
+        </Button>
+      </form>
+      <Snackbar
+        open={snackbar.open}
+        onOpenChange={open => setSnackbar(prev => ({ ...prev, open }))}
+        message={snackbar.message}
+        variant={snackbar.variant}
+        duration={5000}
+        aria-live="polite"
+      />
+    </>
   );
 };
 
