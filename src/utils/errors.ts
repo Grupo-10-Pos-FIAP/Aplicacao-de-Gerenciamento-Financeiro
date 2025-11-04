@@ -73,3 +73,15 @@ export class UnauthorizedDeleteError extends TransactionDeleteError {
     Object.setPrototypeOf(this, UnauthorizedDeleteError.prototype);
   }
 }
+
+export class TransactionFetchError extends TransactionError {
+  constructor(
+    message: string = 'Erro ao buscar transação.',
+    code: string = 'FETCH_ERROR',
+    statusCode?: number
+  ) {
+    super(message, code, statusCode);
+    this.name = 'TransactionFetchError';
+    Object.setPrototypeOf(this, TransactionFetchError.prototype);
+  }
+}

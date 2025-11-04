@@ -15,19 +15,17 @@ import {
 } from '@grupo10-pos-fiap/design-system';
 import ContactListItem from '@/components/ContactListItem';
 import { useContacts } from '@/hooks/useContacts';
+import type { Category } from '@/types/transaction';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
-import { useTransactionFormSubmission } from '@/hooks/useTransactionFormSubmission';
-
-interface FormData {
-  transactionType: string;
-  selectedAccount: string;
-  amount: string;
-  date: string;
-  tab: string;
-}
+import {
+  useTransactionFormSubmission,
+  TransactionFormData,
+} from '@/hooks/useTransactionFormSubmission';
 
 const Transactions: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<
+    TransactionFormData & { tab: string }
+  >({
     transactionType: '',
     selectedAccount: '',
     amount: '',
@@ -84,7 +82,10 @@ const Transactions: React.FC = () => {
     return item.id === activeItem;
   };
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (
+    field: keyof TransactionFormData | 'tab',
+    value: string
+  ) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
@@ -122,7 +123,9 @@ const Transactions: React.FC = () => {
             label="Tipo de transferência"
             placeholder="Selecione o tipo de transação"
             items={transactionTypes}
-            onValueChange={value => handleInputChange('transactionType', value)}
+            onValueChange={value =>
+              handleInputChange('transactionType', value as Category)
+            }
             width={'100%'}
           />
 

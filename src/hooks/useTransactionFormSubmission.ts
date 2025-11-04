@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { createTransaction } from '@/services/transactionService';
-import type { Transaction, Category, PaymentMethod } from '@/types/transaction';
+import type { Transaction, Category } from '@/types/transaction';
 
-interface TransactionFormData {
-  transactionType: string;
+export interface TransactionFormData {
+  transactionType: Category | '';
   selectedAccount: string;
   amount: string;
   date: string;
@@ -47,15 +47,19 @@ export const useTransactionFormSubmission = (onSuccess?: () => void) => {
       return;
     }
 
+    if (!formData.transactionType) {
+      return;
+    }
+
     const newTransaction: Omit<Transaction, 'id'> = {
       amount: parseFloat(formData.amount),
       currency: 'BRL',
       description: `Transferência para conta ${formData.selectedAccount}`,
-      date: new Date(formData.date).toISOString(),
+      date: new Date(`${formData.date}T00:00:00`).toISOString(),
       type: 'expense',
-      category: formData.transactionType as Category,
+      category: formData.transactionType,
       status: 'completed',
-      paymentMethod: formData.transactionType as PaymentMethod,
+      paymentMethod: 'pix', // Mapeamento seguro, assumindo 'pix' como padrão para transferências
     };
 
     try {

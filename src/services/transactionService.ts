@@ -3,6 +3,7 @@ import type { Transaction } from '@/types/transaction';
 import {
   NotFoundError,
   TransactionDeleteError,
+  TransactionFetchError,
   TransactionCreateError,
 } from '@/utils/errors';
 import { handleFetchError, fetchWithTimeout } from './apiUtils';
@@ -75,7 +76,7 @@ export async function getTransactionById(
       if (response.status === 404) {
         return null;
       }
-      throw new TransactionDeleteError(
+      throw new TransactionFetchError(
         'Erro ao buscar transação',
         'FETCH_ERROR',
         response.status
