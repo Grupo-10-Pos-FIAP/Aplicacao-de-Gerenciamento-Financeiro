@@ -1,10 +1,4 @@
-export interface NewAccountProps {
-  id: string;
-  label: string;
-  children?: NewAccountProps[];
-  isActive?: boolean;
-}
-
+import type { NewAccountProps } from '@/types/newAccount';
 export const newAccount: NewAccountProps[] = [
   {
     id: 'mesma-titularidade',
