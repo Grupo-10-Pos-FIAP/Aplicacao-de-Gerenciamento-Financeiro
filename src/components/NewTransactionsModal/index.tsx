@@ -116,7 +116,7 @@ const NewTransactionsModal: React.FC = () => {
 
         <Dropdown
           key={dropdownKey}
-          placeholder="Selecione o tipo de transação"
+          placeholder="Selecione o tipo de transferência"
           items={transactionTypes}
           onValueChange={value => handleInputChange('transactionType', value)}
           width={'100%'}

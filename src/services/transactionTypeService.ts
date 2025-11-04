@@ -16,7 +16,7 @@ export async function getTransactionTypes(): Promise<
 
     if (!response.ok) {
       throw new Error(
-        `Erro ao buscar tipos de transação: ${response.statusText}`
+        `Erro ao buscar tipos de transferência: ${response.statusText}`
       );
     }
 

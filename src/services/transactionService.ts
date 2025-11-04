@@ -48,7 +48,7 @@ export async function createTransaction(
 
     if (!response.ok) {
       throw new TransactionCreateError(
-        'Erro ao criar transação',
+        'Erro ao criar transferência',
         'CREATE_ERROR',
         response.status
       );
@@ -77,7 +77,7 @@ export async function getTransactionById(
         return null;
       }
       throw new TransactionFetchError(
-        'Erro ao buscar transação',
+        'Erro ao buscar transferência',
         'FETCH_ERROR',
         response.status
       );
@@ -104,7 +104,7 @@ export async function deleteTransaction(id: string): Promise<void> {
         throw new NotFoundError();
       }
       throw new TransactionDeleteError(
-        'Erro ao deletar transação',
+        'Erro ao deletar transferência',
         'DELETE_ERROR',
         response.status
       );

@@ -40,7 +40,7 @@ const SimpleNavDrawer = ({ userName }: SimpleNavDrawerProps) => {
     },
     {
       id: 'transaction',
-      label: 'Transação',
+      label: 'Transferência',
       icon: 'Repeat',
       path: '/transaction',
     },
@@ -96,11 +96,11 @@ const SimpleNavDrawer = ({ userName }: SimpleNavDrawerProps) => {
 
   if (isMobile) {
     return (
-      <div className='shrink-0'>
+      <div className="shrink-0">
         <Tabs value={selectedTab} onValueChange={handleTabChange} width="100%">
           <Tabs.List aria-label="Navegação principal">
             <Tabs.Trigger label="Início" value="tab1" />
-            <Tabs.Trigger label="Transação" value="tab2" />
+            <Tabs.Trigger label="Transferências" value="tab2" />
           </Tabs.List>
         </Tabs>
       </div>

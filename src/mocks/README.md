@@ -13,7 +13,7 @@ Este diretório contém a configuração simplificada do JSON Server para desenv
 
 ```bash
 # Instala o json-server na versão abaixo
-npm install -D json-server@0.17.3
+npm install -D json-server@0.17.4
 ```
 
 ```bash
@@ -41,11 +41,11 @@ Retorna todas as transações
 
 ### GET /transactions/:id
 
-Retorna uma transação específica
+Retorna uma transferência específica
 
 ### POST /transactions
 
-Cria uma nova transação
+Cria uma nova transferência
 
 **Body:**
 
@@ -53,7 +53,7 @@ Cria uma nova transação
 {
   "amount": 100.00,
   "currency": "BRL",
-  "description": "Descrição da transação",
+  "description": "Descrição da transferência",
   "date": "2024-01-15T14:30:00Z",
   "type": "income" | "expense",
   "category": "alimentacao",
@@ -64,15 +64,15 @@ Cria uma nova transação
 
 ### PUT /transactions/:id
 
-Atualiza uma transação completa
+Atualiza uma transferência completa
 
 ### PATCH /transactions/:id
 
-Atualiza parcialmente uma transação
+Atualiza parcialmente uma transferência
 
 ### DELETE /transactions/:id
 
-Deleta uma transação
+Deleta uma transferência
 
 ## Tratamento de erros
 

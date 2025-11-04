@@ -121,7 +121,7 @@ const Transactions: React.FC = () => {
           <Dropdown
             key={dropdownKey}
             label="Tipo de transferência"
-            placeholder="Selecione o tipo de transação"
+            placeholder="Selecione o tipo de transferência"
             items={transactionTypes}
             onValueChange={value =>
               handleInputChange('transactionType', value as Category)
