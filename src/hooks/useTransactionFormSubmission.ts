@@ -1,0 +1,83 @@
+import { useState } from 'react';
+import { createTransaction } from '@/services/transactionService';
+import type { Transaction, Category, PaymentMethod } from '@/types/transaction';
+
+interface TransactionFormData {
+  transactionType: string;
+  selectedAccount: string;
+  amount: string;
+  date: string;
+}
+
+const validateFormData = (formData: TransactionFormData): string | null => {
+  if (!formData.transactionType) {
+    return 'Selecione o tipo de transação';
+  }
+  if (!formData.selectedAccount) {
+    return 'Selecione uma conta';
+  }
+  if (!formData.amount) {
+    return 'Informe o valor da transferência';
+  }
+  if (!formData.date) {
+    return 'Selecione a data';
+  }
+  return null; // No errors
+};
+
+export const useTransactionFormSubmission = (onSuccess?: () => void) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    variant: 'success' | 'error';
+  }>({ open: false, message: '', variant: 'success' });
+
+  const handleSubmit = async (
+    event: React.FormEvent,
+    formData: TransactionFormData
+  ) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const validationError = validateFormData(formData);
+    if (validationError) {
+      setSnackbar({ open: true, message: validationError, variant: 'error' });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const newTransaction: Omit<Transaction, 'id'> = {
+      amount: parseFloat(formData.amount),
+      currency: 'BRL',
+      description: `Transferência para conta ${formData.selectedAccount}`,
+      date: new Date(formData.date).toISOString(),
+      type: 'expense',
+      category: formData.transactionType as Category,
+      status: 'completed',
+      paymentMethod: formData.transactionType as PaymentMethod,
+    };
+
+    try {
+      await createTransaction(newTransaction);
+      setSnackbar({
+        open: true,
+        message: 'Sua transação foi realizada com sucesso.',
+        variant: 'success',
+      });
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Ocorreu um erro desconhecido.';
+      setSnackbar({ open: true, message: errorMessage, variant: 'error' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return { isSubmitting, snackbar, setSnackbar, handleSubmit };
+};

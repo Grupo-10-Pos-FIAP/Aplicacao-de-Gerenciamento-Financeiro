@@ -174,37 +174,26 @@
       "id": 11
     },
     {
-      "amount": 5000,
+      "amount": 555,
       "currency": "BRL",
-      "description": "Transferência para conta mesma-titularidade",
-      "date": "2025-11-04T03:26:07.291Z",
-      "type": "expense",
-      "category": "pix",
-      "status": "completed",
-      "paymentMethod": "pix",
-      "id": 12
-    },
-    {
-      "amount": 5000,
-      "currency": "BRL",
-      "description": "Transferência para conta mesma-titularidade",
-      "date": "2025-11-04T03:30:09.945Z",
-      "type": "expense",
-      "category": "pix",
-      "status": "completed",
-      "paymentMethod": "pix",
-      "id": 13
-    },
-    {
-      "amount": 2500,
-      "currency": "BRL",
-      "description": "Transferência para conta 5",
-      "date": "2025-11-04T04:49:50.598Z",
+      "description": "Transferência para conta 2",
+      "date": "2025-11-04T00:00:00.000Z",
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
       "paymentMethod": "pix-credito",
-      "id": 14
+      "id": 12
+    },
+    {
+      "amount": 10,
+      "currency": "BRL",
+      "description": "Transferência para conta 7",
+      "date": "2025-11-10T00:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "pix-credito",
+      "id": 13
     }
   ],
   "transaction-types": [

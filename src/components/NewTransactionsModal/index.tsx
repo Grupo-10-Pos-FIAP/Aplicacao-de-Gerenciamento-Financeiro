@@ -15,6 +15,7 @@ import type { NewAccountProps } from '@/types/newAccount';
 import type { NewContactProps } from '@/types/newContact';
 import { useContacts } from '@/hooks/useContacts';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
+import { useTransactionFormSubmission } from '@/hooks/useTransactionFormSubmission';
 
 interface FormData {
   transactionType: string;
@@ -33,13 +34,26 @@ const NewTransactionsModal: React.FC = () => {
     tab: 'tab1',
   });
 
+  const [dropdownKey, setDropdownKey] = useState(0);
+  const resetForm = () => {
+    setFormData({
+      transactionType: '',
+      selectedAccount: '',
+      amount: '',
+      date: new Date().toISOString().split('T')[0],
+      tab: 'tab1',
+    });
+    setActiveItem('');
+    setDropdownKey(prevKey => prevKey + 1);
+  };
+
   const [activeItem, setActiveItem] = useState<string>('');
   const {
     isSubmitting,
     snackbar,
     setSnackbar,
     handleSubmit: handleFormSubmit,
-  } = useTransactionFormSubmission();
+  } = useTransactionFormSubmission(resetForm);
   const {
     contacts,
     isLoading: isLoadingContacts,
@@ -101,6 +115,7 @@ const NewTransactionsModal: React.FC = () => {
         </Text>
 
         <Dropdown
+          key={dropdownKey}
           placeholder="Selecione o tipo de transação"
           items={transactionTypes}
           onValueChange={value => handleInputChange('transactionType', value)}

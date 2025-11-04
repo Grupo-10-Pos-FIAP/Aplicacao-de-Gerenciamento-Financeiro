@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import { newAccount, NewAccountProps } from '@const/newAccount';
-import { NewContactProps } from '@/const/newContact';
+import React, { useState, useEffect } from 'react';
+import { newAccount } from '@/const/newAccount';
+import type { NewAccountProps } from '@/types/newAccount';
+import type { NewContactProps } from '@/types/newContact';
 import {
   Dropdown,
   Text,
@@ -15,7 +16,7 @@ import {
 import ContactListItem from '@/components/ContactListItem';
 import { useContacts } from '@/hooks/useContacts';
 import { useTransactionTypes } from '@/hooks/useTransactionTypes';
-import { createTransaction } from '@/services/transactionService';
+import { useTransactionFormSubmission } from '@/hooks/useTransactionFormSubmission';
 
 interface FormData {
   transactionType: string;
@@ -34,13 +35,26 @@ const Transactions: React.FC = () => {
     tab: 'tab1',
   });
 
-  const [activeItem, setActiveItem] = useState<string>('');
-  const [snackbar, setSnackbar] = useState<{
-    open: boolean;
-    message: string;
-    variant: 'success' | 'error';
-  }>({ open: false, message: '', variant: 'success' });
+  const [dropdownKey, setDropdownKey] = useState(0);
+  const resetForm = () => {
+    setFormData({
+      transactionType: '',
+      selectedAccount: '',
+      amount: '',
+      date: '',
+      tab: 'tab1',
+    });
+    setActiveItem('');
+    setDropdownKey(prevKey => prevKey + 1);
+  };
 
+  const [activeItem, setActiveItem] = useState<string>('');
+  const {
+    isSubmitting,
+    snackbar,
+    setSnackbar,
+    handleSubmit: handleFormSubmit,
+  } = useTransactionFormSubmission(resetForm);
   const {
     contacts,
     isLoading: isLoadingContacts,
@@ -51,7 +65,12 @@ const Transactions: React.FC = () => {
     transactionTypes,
     isLoading: isLoadingTypes,
     error: errorTypes,
+    fetchTransactionTypes,
   } = useTransactionTypes();
+
+  useEffect(() => {
+    fetchTransactionTypes();
+  }, [fetchTransactionTypes]);
 
   const handleItemClick = (item: NewAccountProps | NewContactProps) => {
     setActiveItem(item.id);
@@ -72,59 +91,6 @@ const Transactions: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.transactionType) {
-      alert('Selecione o tipo de transação');
-      return;
-    }
-
-    if (!formData.selectedAccount) {
-      alert('Selecione uma conta');
-      return;
-    }
-
-    if (!formData.amount) {
-      alert('Informe o valor da transferência');
-      return;
-    }
-
-    if (!formData.date) {
-      alert('Selecione a data');
-      return;
-    }
-
-    const newTransaction = {
-      amount: parseFloat(formData.amount),
-      currency: 'BRL',
-      description: `Transferência para conta ${formData.selectedAccount}`,
-      date: new Date(formData.date).toISOString(),
-      type: 'expense',
-      category: formData.transactionType,
-      status: 'completed',
-      paymentMethod: formData.transactionType,
-    };
-
-    try {
-      await createTransaction(newTransaction);
-
-      setSnackbar({
-        open: true,
-        message: 'Sua transação foi realizada com sucesso.',
-        variant: 'success',
-      });
-      // TODO: Limpar o formulário após o sucesso
-    } catch (error) {
-      console.error('Erro ao submeter transação:', error);
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Ocorreu um erro ao realizar a transação.';
-      setSnackbar({ open: true, message, variant: 'error' });
-    }
-  };
-
   const favoriteContacts = contacts.filter(item => item.favorite);
 
   if (isLoadingContacts || isLoadingTypes) {
@@ -134,7 +100,8 @@ const Transactions: React.FC = () => {
   if (errorContacts || errorTypes) {
     return (
       <div className="text-center text-red-500 p-8">
-        Erro ao carregar dados: {errorContacts?.message || errorTypes?.message}
+        Erro ao carregar dados:{' '}
+        {String(errorContacts || errorTypes || 'Erro desconhecido')}
       </div>
     );
   }
@@ -142,7 +109,7 @@ const Transactions: React.FC = () => {
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={e => handleFormSubmit(e, formData)}
         className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-auto 2xl:w-1/2 lg:h-3/4 lg:p-8"
       >
         <Text variant="h2" weight="semibold">
@@ -151,7 +118,8 @@ const Transactions: React.FC = () => {
 
         <div className="flex md:flex-row max-sm:flex-col gap-6">
           <Dropdown
-            label="Valor a ser transferido"
+            key={dropdownKey}
+            label="Tipo de transferência"
             placeholder="Selecione o tipo de transação"
             items={transactionTypes}
             onValueChange={value => handleInputChange('transactionType', value)}
@@ -248,8 +216,8 @@ const Transactions: React.FC = () => {
           />
         </div>
 
-        <Button type="submit" width={'100%'}>
-          Concluir transação
+        <Button type="submit" width={'100%'} disabled={isSubmitting}>
+          Realizar transferência
         </Button>
       </form>
       <Snackbar
