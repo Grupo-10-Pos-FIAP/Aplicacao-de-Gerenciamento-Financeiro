@@ -3,10 +3,13 @@
 import { useEffect, useCallback } from 'react';
 import { Snackbar } from '@grupo10-pos-fiap/design-system';
 import type { Transaction } from '@/types/transaction';
-import { useDeleteTransaction } from '@/hooks/useDeleteTransaction';
+import { useDeleteTransaction } from '@app/transaction/hooks/useDeleteTransaction';
 import { isTransactionValid } from '@/utils/typeGuards';
 import { DeleteTransactionModalUI } from './DeleteTransactionModal.presentational';
-import { DELETE_TRANSACTION_MESSAGES, DELETE_TRANSACTION_TIMING } from './DeleteTransactionModal.constants';
+import {
+  DELETE_TRANSACTION_MESSAGES,
+  DELETE_TRANSACTION_TIMING,
+} from './DeleteTransactionModal.constants';
 
 export interface DeleteTransactionModalProps {
   isOpen: boolean;
@@ -79,10 +82,10 @@ export function DeleteTransactionModal({
           onConfirm={deleteTransaction}
         />
       )}
-      
+
       <Snackbar
         open={hasMessages}
-        onOpenChange={(open) => {
+        onOpenChange={open => {
           if (!open) {
             handleSnackbarClose();
           }

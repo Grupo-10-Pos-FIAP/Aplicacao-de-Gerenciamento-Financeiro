@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getTransactionTypes } from '@/services/transactionTypeService';
-import { useFetch } from './useFetch';
+import { useFetch } from '@/hooks/useFetch';
 
 export const useTransactionTypes = () => {
   const {

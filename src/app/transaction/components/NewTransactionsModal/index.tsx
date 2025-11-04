@@ -14,11 +14,11 @@ import { newAccount } from '@/const/newAccount';
 import type { NewAccountProps } from '@/types/newAccount';
 import type { NewContactProps } from '@/types/newContact';
 import { useContacts } from '@/hooks/useContacts';
-import { useTransactionTypes } from '@/hooks/useTransactionTypes';
+import { useTransactionTypes } from '@/app/transaction/hooks/useTransactionTypes';
 import {
   useTransactionFormSubmission,
   TransactionFormData,
-} from '@/hooks/useTransactionFormSubmission';
+} from '@app/transaction/hooks/useTransactionFormSubmission';
 import type { Category } from '@/types/transaction';
 
 interface LocalFormData extends Omit<TransactionFormData, 'transactionType'> {
