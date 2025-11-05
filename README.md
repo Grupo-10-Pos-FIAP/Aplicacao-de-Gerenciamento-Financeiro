@@ -39,6 +39,9 @@ npm run build
 
 # Executar em modo de produção
 npm run start
+
+# Executar o mock de dados
+npm run server:routes
 ```
 
 ## Instalação do Design System

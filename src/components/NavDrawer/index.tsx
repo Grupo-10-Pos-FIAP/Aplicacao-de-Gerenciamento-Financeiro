@@ -8,7 +8,11 @@ import {
   ListItem,
   Tabs,
 } from '@grupo10-pos-fiap/design-system';
-import { getFullFormattedDate } from '@utils/date.utils';
+import { getFullFormattedDate } from '@utils/formatters/date.utils';
+
+interface SimpleNavDrawerProps {
+  userName: string;
+}
 
 interface NavItem {
   id: string;
@@ -19,7 +23,7 @@ interface NavItem {
   isActive?: boolean;
 }
 
-const SimpleNavDrawer: React.FC = () => {
+const SimpleNavDrawer = ({ userName }: SimpleNavDrawerProps) => {
   const [activeItem, setActiveItem] = useState<string>('home');
   const [selectedTab, setSelectedTab] = useState<string>('tab1');
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -36,7 +40,7 @@ const SimpleNavDrawer: React.FC = () => {
     },
     {
       id: 'transaction',
-      label: 'Transação',
+      label: 'Transferência',
       icon: 'Repeat',
       path: '/transaction',
     },
@@ -92,11 +96,11 @@ const SimpleNavDrawer: React.FC = () => {
 
   if (isMobile) {
     return (
-      <div className='shrink-0'>
+      <div className="shrink-0">
         <Tabs value={selectedTab} onValueChange={handleTabChange} width="100%">
           <Tabs.List aria-label="Navegação principal">
             <Tabs.Trigger label="Início" value="tab1" />
-            <Tabs.Trigger label="Transação" value="tab2" />
+            <Tabs.Trigger label="Transferências" value="tab2" />
           </Tabs.List>
         </Tabs>
       </div>
@@ -108,7 +112,7 @@ const SimpleNavDrawer: React.FC = () => {
       <div className="w-64 shrink-0">
         <div className="flex flex-col gap-2 p-4 pb-4">
           <Text color="base" variant="h1" weight="semibold">
-            Bem-vindo, usuário
+            Bem-vindo, {userName}
           </Text>
           <Text color="gray700" variant="small">
             {getFullFormattedDate()}

@@ -7,7 +7,7 @@ import {
   Spinner,
   DialogHeader,
 } from '@grupo10-pos-fiap/design-system';
-import { DELETE_TRANSACTION_MESSAGES } from './DeleteTransactionModal.constants';
+import { DELETE_TRANSACTION_MESSAGES } from '@/app/transaction/components/DeleteTransactionModal/DeleteTransactionModal.constants';
 
 export interface DeleteTransactionModalUIProps {
   isOpen: boolean;
@@ -74,7 +74,7 @@ export function DeleteTransactionModalUI({
           >
             {isDeleting ? (
               <>
-                <Spinner aria-hidden="true" size="small"/>
+                <Spinner aria-hidden="true" size="small" />
                 {DELETE_TRANSACTION_MESSAGES.BUTTON_DELETING}
               </>
             ) : (

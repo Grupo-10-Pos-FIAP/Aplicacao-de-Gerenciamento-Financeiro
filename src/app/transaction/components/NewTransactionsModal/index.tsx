@@ -1,8 +1,5 @@
-'use client';
 import React, { useState, useEffect } from 'react';
-import { newAccount } from '@/const/newAccount';
-import type { NewAccountProps } from '@/types/newAccount';
-import type { NewContactProps } from '@/types/newContact';
+import ContactListItem from '@/components/ContactListItem';
 import {
   Dropdown,
   Text,
@@ -13,23 +10,31 @@ import {
   ListItem,
   Snackbar,
 } from '@grupo10-pos-fiap/design-system';
-import ContactListItem from '@/components/ContactListItem';
+import { newAccount } from '@/const/newAccount';
+import type { NewAccountProps } from '@/types/newAccount';
+import type { NewContactProps } from '@/types/newContact';
 import { useContacts } from '@/hooks/useContacts';
-import type { Category } from '@/types/transaction';
 import { useTransactionTypes } from '@/app/transaction/hooks/useTransactionTypes';
 import {
   useTransactionFormSubmission,
   TransactionFormData,
 } from '@app/transaction/hooks/useTransactionFormSubmission';
+import type { Category } from '@/types/transaction';
 
-const Transactions: React.FC = () => {
-  const [formData, setFormData] = useState<
-    TransactionFormData & { tab: string }
-  >({
+interface LocalFormData extends Omit<TransactionFormData, 'transactionType'> {
+  selectedAccount: string;
+  transactionType: Category | '';
+  amount: string;
+  date: string;
+  tab: string;
+}
+
+const NewTransactionsModal: React.FC = () => {
+  const [formData, setFormData] = useState<LocalFormData>({
     transactionType: '',
     selectedAccount: '',
     amount: '',
-    date: '',
+    date: new Date().toISOString().split('T')[0],
     tab: 'tab1',
   });
 
@@ -39,7 +44,7 @@ const Transactions: React.FC = () => {
       transactionType: '',
       selectedAccount: '',
       amount: '',
-      date: '',
+      date: new Date().toISOString().split('T')[0],
       tab: 'tab1',
     });
     setActiveItem('');
@@ -82,10 +87,7 @@ const Transactions: React.FC = () => {
     return item.id === activeItem;
   };
 
-  const handleInputChange = (
-    field: keyof TransactionFormData | 'tab',
-    value: string
-  ) => {
+  const handleInputChange = (field: keyof LocalFormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
@@ -95,14 +97,13 @@ const Transactions: React.FC = () => {
   const favoriteContacts = contacts.filter(item => item.favorite);
 
   if (isLoadingContacts || isLoadingTypes) {
-    return <div className="text-center p-8">Carregando contatos...</div>;
+    return <div className="text-center p-8">Carregando...</div>;
   }
 
   if (errorContacts || errorTypes) {
     return (
       <div className="text-center text-red-500 p-8">
-        Erro ao carregar dados:{' '}
-        {String(errorContacts || errorTypes || 'Erro desconhecido')}
+        Erro ao carregar dados.
       </div>
     );
   }
@@ -111,31 +112,21 @@ const Transactions: React.FC = () => {
     <>
       <form
         onSubmit={e => handleFormSubmit(e, formData)}
-        className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-auto 2xl:w-1/2 lg:h-3/4 lg:p-8"
+        className="flex flex-col bg-white rounded-2xl max-lg:gap-6 lg:gap-8 max-xl:p-6 w-full lg:p-8"
       >
         <Text variant="h2" weight="semibold">
           Nova transferência
         </Text>
 
-        <div className="flex md:flex-row max-sm:flex-col gap-6">
-          <Dropdown
-            key={dropdownKey}
-            label="Tipo de transferência"
-            placeholder="Selecione o tipo de transferência"
-            items={transactionTypes}
-            onValueChange={value =>
-              handleInputChange('transactionType', value as Category)
-            }
-            width={'100%'}
-          />
-
-          <Input
-            value={'R$ 5.000,00'}
-            label="Saldo disponível"
-            width={'100%'}
-            disabled
-          />
-        </div>
+        <Dropdown
+          key={dropdownKey}
+          placeholder="Selecione o tipo de transferência"
+          items={transactionTypes}
+          onValueChange={value =>
+            handleInputChange('transactionType', value as Category)
+          }
+          width={'100%'}
+        />
 
         <Tabs
           value={formData.tab}
@@ -174,6 +165,7 @@ const Transactions: React.FC = () => {
                   }
                 />
               ))}
+              {/*  quando não há favoritos */}
               {favoriteContacts.length === 0 && (
                 <div className="text-center text-gray-500 py-4">
                   Nenhum contato favorito encontrado
@@ -204,24 +196,13 @@ const Transactions: React.FC = () => {
           <Divider orientation="horizontal" />
         </div>
 
-        <div className="flex md:flex-row max-sm:flex-col gap-6">
-          <Input
-            label="Data"
-            type="date"
-            value={formData.date}
-            onChange={e => handleInputChange('date', e.target.value)}
-            width={'100%'}
-            required
-          />
-          <Input
-            value={formData.amount}
-            onChange={e => handleInputChange('amount', e.target.value)}
-            label="Valor a ser transferido"
-            type="number"
-            width={'100%'}
-            required
-          />
-        </div>
+        <Input
+          value={formData.amount}
+          onChange={e => handleInputChange('amount', e.target.value)}
+          label="Valor a ser transferido"
+          width={'100%'}
+          required
+        />
 
         <Button type="submit" width={'100%'} disabled={isSubmitting}>
           Realizar transferência
@@ -239,4 +220,4 @@ const Transactions: React.FC = () => {
   );
 };
 
-export default Transactions;
+export default NewTransactionsModal;

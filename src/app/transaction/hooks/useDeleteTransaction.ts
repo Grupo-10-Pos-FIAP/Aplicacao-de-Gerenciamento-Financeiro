@@ -1,21 +1,12 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import type { Transaction } from '@/types/transaction';
 import { canDeleteTransaction } from '@/utils/validators';
-import {
-  UnauthorizedDeleteError,
-  NotFoundError,
-  NetworkError,
-  TransactionDeleteError,
-} from '@/utils/errors';
-import {
-  DELETE_TRANSACTION_MESSAGES,
-  DELETE_TRANSACTION_TIMING,
-} from '@/components/DeleteTransactionModal/DeleteTransactionModal.constants';
+import { getErrorMessage } from '@/utils/errors';
+import { DELETE_TRANSACTION_MESSAGES } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal.constants';
 
 interface UseDeleteTransactionOptions {
   onSuccess?: () => void;
   successMessage?: string;
-  successCloseDelay?: number;
 }
 
 interface UseDeleteTransactionReturn {
@@ -33,16 +24,12 @@ export function useDeleteTransaction(
   onConfirm: (transaction: Transaction) => Promise<void>,
   options: UseDeleteTransactionOptions = {}
 ): UseDeleteTransactionReturn {
-  const {
-    onSuccess,
-    successMessage = DELETE_TRANSACTION_MESSAGES.SUCCESS,
-    successCloseDelay = DELETE_TRANSACTION_TIMING.SUCCESS_CLOSE_DELAY,
-  } = options;
+  const { onSuccess, successMessage = DELETE_TRANSACTION_MESSAGES.SUCCESS } =
+    options;
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isMountedRef = useRef(true);
 
   const canDelete = useMemo(
@@ -50,51 +37,28 @@ export function useDeleteTransaction(
     [transaction]
   );
 
-  const clearTimeoutRef = useRef(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-  });
-
   const clearMessages = useCallback(() => {
     setError(null);
     setSuccess(null);
-    clearTimeoutRef.current();
   }, []);
 
   const reset = useCallback(() => {
     setIsDeleting(false);
-    setError(null);
-    setSuccess(null);
-    clearTimeoutRef.current();
-  }, []);
+    clearMessages();
+  }, [clearMessages]);
 
   useEffect(() => {
     isMountedRef.current = true;
-    const clearTimeoutFn = clearTimeoutRef.current;
     return () => {
       isMountedRef.current = false;
-      clearTimeoutFn();
     };
-  }, []);
-
-  const getErrorMessage = useCallback((err: unknown): string => {
-    if (err instanceof UnauthorizedDeleteError) return err.message;
-    if (err instanceof NotFoundError) return err.message;
-    if (err instanceof NetworkError) return err.message;
-    if (err instanceof TransactionDeleteError) return err.message;
-    if (err instanceof Error) return err.message;
-    return DELETE_TRANSACTION_MESSAGES.ERROR_DEFAULT;
   }, []);
 
   const deleteTransaction = useCallback(async () => {
     if (!transaction || !canDelete || isDeleting) return;
 
     setIsDeleting(true);
-    setError(null);
-    setSuccess(null);
-    clearTimeoutRef.current();
+    clearMessages();
 
     try {
       await onConfirm(transaction);
@@ -103,24 +67,11 @@ export function useDeleteTransaction(
 
       setSuccess(successMessage);
 
-      timeoutRef.current = setTimeout(() => {
-        if (isMountedRef.current) {
-          setSuccess(null);
-          onSuccess?.();
-        }
-        timeoutRef.current = null;
-      }, successCloseDelay);
+      onSuccess?.();
     } catch (err) {
       if (!isMountedRef.current) return;
       const errorMessage = getErrorMessage(err);
       setError(errorMessage);
-      
-      timeoutRef.current = setTimeout(() => {
-        if (isMountedRef.current) {
-          setError(null);
-        }
-        timeoutRef.current = null;
-      }, DELETE_TRANSACTION_TIMING.SNACKBAR_DURATION);
     } finally {
       if (isMountedRef.current) {
         setIsDeleting(false);
@@ -130,11 +81,10 @@ export function useDeleteTransaction(
     transaction,
     canDelete,
     isDeleting,
+    clearMessages,
     onConfirm,
-    onSuccess,
     successMessage,
-    successCloseDelay,
-    getErrorMessage,
+    onSuccess,
   ]);
 
   return {
@@ -147,4 +97,3 @@ export function useDeleteTransaction(
     clearMessages,
   };
 }
-

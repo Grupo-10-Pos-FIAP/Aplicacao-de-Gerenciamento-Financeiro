@@ -1,114 +1,355 @@
 {
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Maria Silva",
+      "favorite": true
+    },
+    {
+      "id": 2,
+      "name": "João Santos",
+      "favorite": false
+    },
+    {
+      "id": 3,
+      "name": "Ana Oliveira",
+      "favorite": true
+    },
+    {
+      "id": 4,
+      "name": "Pedro Costa",
+      "favorite": false
+    },
+    {
+      "id": 5,
+      "name": "Carla Rodrigues",
+      "favorite": true
+    },
+    {
+      "id": 6,
+      "name": "Lucas Almeida",
+      "favorite": false
+    },
+    {
+      "id": 7,
+      "name": "Fernanda Lima",
+      "favorite": true
+    },
+    {
+      "id": 8,
+      "name": "Rafael Gomes",
+      "favorite": false
+    },
+    {
+      "id": 9,
+      "name": "Juliana Ferreira",
+      "favorite": true
+    },
+    {
+      "id": 10,
+      "name": "Bruno Martins",
+      "favorite": false
+    }
+  ],
   "transactions": [
-  {
-    "id": 1,
-    "amount": 150.75,
-    "currency": "BRL",
-    "description": "Compra no Supermercado",
-    "date": "2024-01-15T14:30:00Z",
-    "type": "expense",
-    "category": "alimentacao",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 2,
-    "amount": 2500.00,
-    "currency": "BRL",
-    "description": "Salário",
-    "date": "2024-01-05T08:00:00Z",
-    "type": "income",
-    "category": "salario",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 3,
-    "amount": 89.90,
-    "currency": "BRL",
-    "description": "Netflix",
-    "date": "2024-01-10T00:00:00Z",
-    "type": "expense",
-    "category": "entretenimento",
-    "status": "pending",
-    "paymentMethod": "debit_card"
-  },
-  {
-    "id": 4,
-    "amount": 120.00,
-    "currency": "BRL",
-    "description": "Combustível",
-    "date": "2024-01-12T09:15:00Z",
-    "type": "expense",
-    "category": "transporte",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 5,
-    "amount": 350.00,
-    "currency": "BRL",
-    "description": "Aluguel",
-    "date": "2024-01-01T00:00:00Z",
-    "type": "expense",
-    "category": "moradia",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 6,
-    "amount": 800.00,
-    "currency": "BRL",
-    "description": "Freelance - Desenvolvimento",
-    "date": "2024-01-20T16:00:00Z",
-    "type": "income",
-    "category": "renda_extra",
-    "status": "completed",
-    "paymentMethod": "pix"
-  },
-  {
-    "id": 7,
-    "amount": 65.50,
-    "currency": "BRL",
-    "description": "Farmácia",
-    "date": "2024-01-08T11:20:00Z",
-    "type": "expense",
-    "category": "saude",
-    "status": "completed",
-    "paymentMethod": "debit_card"
-  },
-  {
-    "id": 8,
-    "amount": 45.00,
-    "currency": "BRL",
-    "description": "Jantar com amigos",
-    "date": "2024-01-14T20:45:00Z",
-    "type": "expense",
-    "category": "alimentacao",
-    "status": "completed",
-    "paymentMethod": "credit_card"
-  },
-  {
-    "id": 9,
-    "amount": 1500.00,
-    "currency": "BRL",
-    "description": "Investimento em ações",
-    "date": "2024-01-03T10:00:00Z",
-    "type": "expense",
-    "category": "investimentos",
-    "status": "completed",
-    "paymentMethod": "bank_transfer"
-  },
-  {
-    "id": 10,
-    "amount": 300.00,
-    "currency": "BRL",
-    "description": "Venda de equipamentos",
-    "date": "2024-01-25T14:10:00Z",
-    "type": "income",
-    "category": "renda_extra",
-    "status": "pending",
-    "paymentMethod": "pix"
-  }
-]
+    {
+      "id": 1,
+      "amount": 450.5,
+      "currency": "BRL",
+      "description": "Compra no Supermercado da maria",
+      "date": "2024-01-12T03:00:00.000Z",
+      "type": "expense",
+      "category": "alimentacao",
+      "status": "completed",
+      "paymentMethod": "1",
+      "from": "Conta Principal",
+      "to": "Supermercado Pague Menos",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 2,
+      "amount": 2502.59,
+      "currency": "BRL",
+      "description": "Salário 2",
+      "date": "2024-01-16T03:00:00.000Z",
+      "type": "income",
+      "category": "salario",
+      "status": "completed",
+      "paymentMethod": "4",
+      "from": "Empresa Fictícia S.A.",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 4,
+      "amount": 120,
+      "currency": "BRL",
+      "description": "Combustível",
+      "date": "2024-01-12T09:15:00Z",
+      "type": "expense",
+      "category": "transporte",
+      "status": "completed",
+      "paymentMethod": "3",
+      "from": "Conta Principal",
+      "to": "Posto Shell",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 5,
+      "amount": 350,
+      "currency": "BRL",
+      "description": "Aluguel",
+      "date": "2024-01-01T00:00:00Z",
+      "type": "expense",
+      "category": "moradia",
+      "status": "completed",
+      "paymentMethod": "4",
+      "from": "Conta Principal",
+      "to": "Imobiliária Central",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 6,
+      "amount": 800,
+      "currency": "BRL",
+      "description": "Freelance - Desenvolvimento",
+      "date": "2024-01-20T16:00:00Z",
+      "type": "income",
+      "category": "renda_extra",
+      "status": "completed",
+      "paymentMethod": "5",
+      "from": "Cliente Freelance",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 7,
+      "amount": 65.5,
+      "currency": "BRL",
+      "description": "Farmácia",
+      "date": "2024-01-08T11:20:00Z",
+      "type": "expense",
+      "category": "saude",
+      "status": "completed",
+      "paymentMethod": "6",
+      "from": "Conta Principal",
+      "to": "Drogaria São Paulo",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 8,
+      "amount": 45,
+      "currency": "BRL",
+      "description": "Jantar com amigos",
+      "date": "2024-01-14T20:45:00Z",
+      "type": "expense",
+      "category": "alimentacao",
+      "status": "completed",
+      "paymentMethod": "7",
+      "from": "Conta Principal",
+      "to": "Restaurante Sabor Divino",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 9,
+      "amount": 1500,
+      "currency": "BRL",
+      "description": "Investimento em ações",
+      "date": "2024-01-03T10:00:00Z",
+      "type": "expense",
+      "category": "investimentos",
+      "status": "completed",
+      "paymentMethod": "8",
+      "from": "Conta Principal",
+      "to": "Corretora XP",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "id": 10,
+      "amount": 300,
+      "currency": "BRL",
+      "description": "Venda de equipamentos",
+      "date": "2024-01-25T14:10:00Z",
+      "type": "income",
+      "category": "renda_extra",
+      "status": "pending",
+      "paymentMethod": "1",
+      "from": "Comprador OLX",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 5000,
+      "currency": "BRL",
+      "description": "Transferência para conta mesma-titularidade",
+      "date": "2025-11-04T03:24:18.088Z",
+      "type": "expense",
+      "category": "pix",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 11,
+      "from": "Conta Principal",
+      "to": "Minha Outra Conta",
+      "bank": "Outro Banco"
+    },
+    {
+      "amount": 555,
+      "currency": "BRL",
+      "description": "Transferência para conta 2",
+      "date": "2025-11-04T00:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "9",
+      "id": 12,
+      "from": "Cartão de Crédito",
+      "to": "Maria Silva",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 10,
+      "currency": "BRL",
+      "description": "Transferência para conta 7",
+      "date": "2025-11-10T00:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 13,
+      "from": "Cartão de Crédito",
+      "to": "João Santos",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 500,
+      "currency": "BRL",
+      "description": "Transferência para conta 3",
+      "date": "2025-11-05T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "2",
+      "id": 14,
+      "from": "Cartão de Crédito",
+      "to": "Ana Oliveira",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 1,
+      "currency": "BRL",
+      "description": "Transferência para conta 10",
+      "date": "2025-11-06T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 15,
+      "from": "Cartão de Crédito",
+      "to": "Pedro Costa",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 250,
+      "currency": "BRL",
+      "description": "Transferência para conta 5",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "emprestimo-financiamento",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 16,
+      "from": "Empréstimo Pessoal",
+      "to": "Conta Principal",
+      "bank": "Financeira CredFácil"
+    },
+    {
+      "amount": 50,
+      "currency": "BRL",
+      "description": "Transferência para conta 3",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "emprestimo-financiamento",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 17,
+      "from": "Empréstimo Pessoal",
+      "to": "Conta Principal",
+      "bank": "Financeira CredFácil"
+    },
+    {
+      "amount": 25,
+      "currency": "BRL",
+      "description": "Transferência para conta 4",
+      "date": "2025-11-10T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 18,
+      "from": "Cartão de Crédito",
+      "to": "Carla Rodrigues",
+      "bank": "Banco Invest Plus"
+    },
+    {
+      "amount": 550,
+      "currency": "BRL",
+      "description": "Transferência para conta 7",
+      "date": "2025-11-04T03:00:00.000Z",
+      "type": "expense",
+      "category": "pix-credito",
+      "status": "completed",
+      "paymentMethod": "1",
+      "id": 19,
+      "from": "Cartão de Crédito",
+      "to": "Lucas Almeida",
+      "bank": "Banco Invest Plus"
+    }
+  ],
+  "transaction-types": [
+    {
+      "id": 1,
+      "label": "Pix",
+      "value": "pix"
+    },
+    {
+      "id": 2,
+      "label": "Pix no Crédito",
+      "value": "pix-credito"
+    },
+    {
+      "id": 3,
+      "label": "Empréstimo e Financiamento",
+      "value": "emprestimo-financiamento"
+    },
+    {
+      "id": 4,
+      "label": "Cartão de Crédito",
+      "value": "cartao-credito"
+    },
+    {
+      "id": 5,
+      "label": "Boleto",
+      "value": "boleto"
+    },
+    {
+      "id": 6,
+      "label": "Depósito em Conta",
+      "value": "deposito-conta"
+    },
+    {
+      "id": 7,
+      "label": "Câmbio de Moeda",
+      "value": "cambio-moeda"
+    },
+    {
+      "id": 8,
+      "label": "DOC/TED",
+      "value": "doc-ted"
+    },
+    {
+      "id": 9,
+      "label": "Transferência entre Contas",
+      "value": "transferencia-contas"
+    }
+  ]
 }
