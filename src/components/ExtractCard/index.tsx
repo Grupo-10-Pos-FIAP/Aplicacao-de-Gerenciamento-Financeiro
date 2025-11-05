@@ -7,21 +7,15 @@ import {
   IconButton,
   Text,
 } from '@grupo10-pos-fiap/design-system';
-import { DeleteTransactionModalUI } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal.presentational';
 import DetailsDialog from '@components/DetailsDialog';
 
 interface ExtractCardProps {
   type: 'expense' | 'income';
   value: string;
-  onClick: () => void;
+  onDelete: () => void;
 }
 
-const ExtractCard = ({ type, value }: ExtractCardProps) => {
-  const [isOpenDeleteTransactions, setIsOpenDeleteTransactions] =
-    useState(false);
-
-  const [isOpenEditTransactions, setIsOpenEditTransactions] = useState(false);
-
+const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
   const isExpense = type === 'expense';
   const transactionText = isExpense
     ? 'Transferência efetuada'
@@ -49,24 +43,13 @@ const ExtractCard = ({ type, value }: ExtractCardProps) => {
           icon={'Trash'}
           color="gray600"
           size="small"
-          onClick={() => setIsOpenDeleteTransactions(true)}
-        />
-        <DeleteTransactionModalUI
-          isOpen={isOpenDeleteTransactions}
-          onClose={() => setIsOpenDeleteTransactions(false)}
-          onConfirm={() => {}}
-          isDeleting={false}
-          canDelete={false}
+          onClick={onDelete}
         />
       </div>
       <Button variant="outlined" width={'100%'}>
         <Icon name={'SquareMenu'} color="gray600" size="small" />
         Detalhes
       </Button>
-      <DetailsDialog
-        isOpen={isOpenEditTransactions}
-        onClose={() => setIsOpenEditTransactions(false)}
-      />
       <div className="p-1">
         <Divider />
       </div>

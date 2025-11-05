@@ -1,12 +1,52 @@
 'use client';
-import { useState } from 'react';
-import { Text, Icon, IconButton } from '@grupo10-pos-fiap/design-system';
+import { useEffect, useState } from 'react';
+import {
+  Text,
+  Icon,
+  IconButton,
+  Loading,
+} from '@grupo10-pos-fiap/design-system';
 import NewTransactionsModal from '@app/transaction/components/NewTransactionsModal';
-import EditTransactionModal from './transaction/components/EditTransactionModal';
+import ExtractCard from '@components/ExtractCard';
+import { Transaction } from '@/types/transaction';
+import { DeleteTransactionModal } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal';
 
 export default function Home() {
   const [visible, setVisible] = useState(true);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [transactionToDelete, setTransactionToDelete] =
+    useState<Transaction | null>(null);
 
+  useEffect(() => {
+    fetch('http://localhost:3001/transactions')
+      .then(res => res.json())
+      .then(data => {
+        setTransactions(data);
+      });
+    setLoading(false);
+  }, []);
+
+  const handleOpenDeleteModal = (transaction: Transaction) => {
+    setTransactionToDelete(transaction);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setTransactionToDelete(null);
+  };
+
+  const handleConfirmDelete = async (transaction: Transaction) => {
+    await fetch(`http://localhost:3001/transactions/${transaction.id}`, {
+      method: 'DELETE',
+    });
+
+    setTransactions(currentTransactions =>
+      currentTransactions.filter(t => t.id !== transaction.id)
+    );
+    // O modal será fechado automaticamente pela lógica interna do `DeleteTransactionModal` no sucesso.
+  };
+
+  if (loading) return <Loading />;
   return (
     <div className="flex sm:flex-row gap-6 h-full w-full max-sm:flex-col">
       <div className="flex flex-1 flex-col gap-6 h-full">
@@ -24,7 +64,7 @@ export default function Home() {
           {visible && (
             <div className="flex flex-col gap-1">
               <div className="flex items-center">
-                <p className="font-bold text-xl text-white">R$ 5000,00</p>
+                <p className="font-bold text-xl text-white">R$ 5.000,00</p>
                 <Icon name="ArrowUpRight" size="small" color="white" />
               </div>
               <p className="font-normal text-xs text-white">
@@ -39,12 +79,24 @@ export default function Home() {
         <Text variant="h2" weight="semibold">
           Extrato
         </Text>
-        <div className="p-3 rounded-lg flex gap-3 bg-white/80">
-          <EditTransactionModal type={'expense'} value={'5000,00'} onClick={function (): void {
-            throw new Error('Function not implemented.');
-          } } />
+        <div className="p-3 rounded-lg flex flex-col gap-3 bg-white/80 overflow-y-auto">
+          {transactions.map(transaction => (
+            <ExtractCard
+              key={transaction.id}
+              type={transaction.type}
+              value={transaction.amount.toString()}
+              onDelete={() => handleOpenDeleteModal(transaction)}
+            />
+          ))}
           <div className="flex flex-1"></div>
         </div>
+
+        <DeleteTransactionModal
+          isOpen={!!transactionToDelete}
+          onClose={handleCloseDeleteModal}
+          onConfirm={handleConfirmDelete}
+          transaction={transactionToDelete}
+        />
       </div>
     </div>
   );

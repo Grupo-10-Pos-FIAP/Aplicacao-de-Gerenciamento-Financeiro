@@ -1,4 +1,4 @@
-import { API_CONFIG } from './api';
+import { API_CONFIG } from '@/services/api';
 import { NetworkError } from '@/utils/errors';
 
 export function handleFetchError(error: unknown): never {

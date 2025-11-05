@@ -75,17 +75,6 @@
       "paymentMethod": "bank_transfer"
     },
     {
-      "id": 3,
-      "amount": 89.9,
-      "currency": "BRL",
-      "description": "Netflix",
-      "date": "2024-01-10T00:00:00Z",
-      "type": "expense",
-      "category": "entretenimento",
-      "status": "pending",
-      "paymentMethod": "debit_card"
-    },
-    {
       "id": 4,
       "amount": 120,
       "currency": "BRL",
