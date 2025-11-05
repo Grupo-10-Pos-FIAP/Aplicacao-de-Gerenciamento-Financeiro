@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+'use client'
 
+import React, { useState } from 'react';
 import {
   Button,
   Divider,
@@ -16,6 +17,8 @@ interface ExtractCardProps {
 }
 
 const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
+  const [isOpenDetailsDialog, setIsOpenDetailsDialog] = useState(false);
+
   const isExpense = type === 'expense';
   const transactionText = isExpense
     ? 'Transferência efetuada'
@@ -51,10 +54,21 @@ const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
           onClick={onDelete}
         />
       </div>
-      <Button variant="outlined" width={'100%'}>
+      
+      <Button 
+        variant="outlined" 
+        width={'100%'}
+        onClick={() => setIsOpenDetailsDialog(true)}
+      >
         <Icon name={'SquareMenu'} color="gray600" size="small" />
         Detalhes
       </Button>
+      
+      <DetailsDialog
+        isOpen={isOpenDetailsDialog}
+        onClose={() => setIsOpenDetailsDialog(false)}
+      />
+      
       <div className="p-1">
         <Divider />
       </div>
