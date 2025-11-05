@@ -21,6 +21,11 @@ const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
     ? 'Transferência efetuada'
     : 'Transferência recebida';
 
+  const formattedValue = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value));
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between w-full">
@@ -36,7 +41,7 @@ const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
             </Text>
           </div>
           <Text weight="bold" variant="h4">
-            R$ {value}
+            R$ {formattedValue}
           </Text>
         </div>
         <IconButton
