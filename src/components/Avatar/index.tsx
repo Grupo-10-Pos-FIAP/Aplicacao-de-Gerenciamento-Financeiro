@@ -19,15 +19,12 @@ export function Avatar(user: AvatarProps) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <RadixAvatar.Root className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border border-gray-300">
+        <RadixAvatar.Root className="w-10 h-10 rounded-full overflow-hidden cursor-pointer">
           <RadixAvatar.Image
-            src={`https://github.com/${user.github}.png`}
+            src={'/user.svg'}
             alt="Avatar do usuário"
             className="w-full h-full object-cover"
           />
-          <RadixAvatar.Fallback className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-600">
-            {getInitials(user.name)}
-          </RadixAvatar.Fallback>
         </RadixAvatar.Root>
       </DropdownMenu.Trigger>
 
@@ -39,7 +36,7 @@ export function Avatar(user: AvatarProps) {
           <div className="flex flex-col items-center gap-4">
             <RadixAvatar.Root className="w-20 h-20 rounded-full overflow-hidden border border-gray-300">
               <RadixAvatar.Image
-                src={`https://github.com/${user.github}.png`}
+                src={'/user.svg'}
                 alt="Avatar ampliado"
                 className="w-full h-full object-cover"
               />

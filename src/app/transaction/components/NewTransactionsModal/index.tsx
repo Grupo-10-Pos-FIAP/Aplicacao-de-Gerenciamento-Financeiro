@@ -34,7 +34,7 @@ const NewTransactionsModal: React.FC = () => {
     transactionType: '',
     selectedAccount: '',
     amount: '',
-    date: new Date().toISOString().split('T')[0], // Data atual
+    date: new Date().toISOString().split('T')[0],
     tab: 'tab1',
   });
 

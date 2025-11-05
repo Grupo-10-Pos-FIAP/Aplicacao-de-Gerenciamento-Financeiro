@@ -1,9 +1,8 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Avatar } from '@components/Avatar';
-import { AvatarProps } from '@components/Avatar/interfaces';
-import { Card, Icon, IconButton } from '@grupo10-pos-fiap/design-system';
+import { useState } from 'react';
+import { Text, Icon, IconButton } from '@grupo10-pos-fiap/design-system';
 import NewTransactionsModal from '@app/transaction/components/NewTransactionsModal';
+import EditTransactionModal from './transaction/components/EditTransactionModal';
 
 export default function Home() {
   const [visible, setVisible] = useState(true);
@@ -37,17 +36,13 @@ export default function Home() {
         <NewTransactionsModal />
       </div>
       <div className=" flex-1 p-6 flex flex-col gap-2 bg-white rounded-3xl">
-        <h3 className="font-bold text-[#1C2024] text-2xl">Extrato</h3>
+        <Text variant="h2" weight="semibold">
+          Extrato
+        </Text>
         <div className="p-3 rounded-lg flex gap-3 bg-white/80">
-          <div className="flex flex-1 flex-col gap-3">
-            <div className="flex gap-2 items-center">
-              <Icon name="ArrowUpRight" size="small" color="error" />
-              <p className="text-[#555555] font-normal text-xs">
-                Transferência efetuada
-              </p>
-            </div>
-            <p className="font-bold text-lg text-[#1C2024]">R$ 5.000,00</p>
-          </div>
+          <EditTransactionModal type={'expense'} value={'5000,00'} onClick={function (): void {
+            throw new Error('Function not implemented.');
+          } } />
           <div className="flex flex-1"></div>
         </div>
       </div>
