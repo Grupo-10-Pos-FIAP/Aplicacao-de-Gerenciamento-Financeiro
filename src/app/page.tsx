@@ -9,6 +9,7 @@ import {
 import NewTransactionsModal from '@app/transaction/components/NewTransactionsModal';
 import ExtractCard from '@components/ExtractCard';
 import { Transaction } from '@/types/transaction';
+import EditTransactionModal from '@app/transaction/components/EditTransactionModal';
 import { DeleteTransactionModal } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal';
 
 export default function Home() {
@@ -16,6 +17,8 @@ export default function Home() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [transactionToDelete, setTransactionToDelete] =
+    useState<Transaction | null>(null);
+  const [transactionToEdit, setTransactionToEdit] =
     useState<Transaction | null>(null);
 
   useEffect(() => {
@@ -35,6 +38,14 @@ export default function Home() {
     setTransactionToDelete(null);
   };
 
+  const handleOpenEditModal = (transaction: Transaction) => {
+    setTransactionToEdit(transaction);
+  };
+
+  const handleCloseEditModal = () => {
+    setTransactionToEdit(null);
+  };
+
   const handleConfirmDelete = async (transaction: Transaction) => {
     await fetch(`http://localhost:3001/transactions/${transaction.id}`, {
       method: 'DELETE',
@@ -43,7 +54,24 @@ export default function Home() {
     setTransactions(currentTransactions =>
       currentTransactions.filter(t => t.id !== transaction.id)
     );
-    // O modal será fechado automaticamente pela lógica interna do `DeleteTransactionModal` no sucesso.
+  };
+
+  const handleConfirmEdit = async (updatedTransaction: Transaction) => {
+    const response = await fetch(
+      `http://localhost:3001/transactions/${updatedTransaction.id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTransaction),
+      }
+    );
+    const result = await response.json();
+
+    setTransactions(currentTransactions =>
+      currentTransactions.map(t => (t.id === result.id ? result : t))
+    );
   };
 
   if (loading) return <Loading />;
@@ -83,9 +111,9 @@ export default function Home() {
           {transactions.map(transaction => (
             <ExtractCard
               key={transaction.id}
-              type={transaction.type}
-              value={transaction.amount.toString()}
+              transaction={transaction}
               onDelete={() => handleOpenDeleteModal(transaction)}
+              onEdit={() => handleOpenEditModal(transaction)}
             />
           ))}
           <div className="flex flex-1"></div>
@@ -96,6 +124,13 @@ export default function Home() {
           onClose={handleCloseDeleteModal}
           onConfirm={handleConfirmDelete}
           transaction={transactionToDelete}
+        />
+
+        <EditTransactionModal
+          isOpen={!!transactionToEdit}
+          onClose={handleCloseEditModal}
+          transaction={transactionToEdit}
+          onConfirm={handleConfirmEdit}
         />
       </div>
     </div>

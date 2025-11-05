@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import {
@@ -9,17 +9,18 @@ import {
   Text,
 } from '@grupo10-pos-fiap/design-system';
 import DetailsDialog from '@components/DetailsDialog';
+import { Transaction } from '@/types/transaction';
 
 interface ExtractCardProps {
-  type: 'expense' | 'income';
-  value: string;
+  transaction: Transaction;
   onDelete: () => void;
+  onEdit: () => void;
 }
 
-const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
+const ExtractCard = ({ transaction, onDelete, onEdit }: ExtractCardProps) => {
   const [isOpenDetailsDialog, setIsOpenDetailsDialog] = useState(false);
 
-  const isExpense = type === 'expense';
+  const isExpense = transaction.type === 'expense';
   const transactionText = isExpense
     ? 'Transferência efetuada'
     : 'Transferência recebida';
@@ -27,7 +28,7 @@ const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
   const formattedValue = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(Number(value));
+  }).format(Number(transaction.amount));
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -47,28 +48,37 @@ const ExtractCard = ({ type, value, onDelete }: ExtractCardProps) => {
             R$ {formattedValue}
           </Text>
         </div>
-        <IconButton
-          icon={'Trash'}
-          color="gray600"
-          size="small"
-          onClick={onDelete}
-        />
+        <div className="flex items-center gap-2">
+          <IconButton
+            icon={'SquarePen'}
+            color="gray600"
+            size="small"
+            onClick={onEdit}
+          />
+          <IconButton
+            icon={'Trash'}
+            color="gray600"
+            size="small"
+            onClick={onDelete}
+          />
+        </div>
       </div>
-      
-      <Button 
-        variant="outlined" 
+
+      <Button
+        variant="outlined"
         width={'100%'}
         onClick={() => setIsOpenDetailsDialog(true)}
       >
         <Icon name={'SquareMenu'} color="gray600" size="small" />
         Detalhes
       </Button>
-      
+
       <DetailsDialog
         isOpen={isOpenDetailsDialog}
+        transaction={transaction}
         onClose={() => setIsOpenDetailsDialog(false)}
       />
-      
+
       <div className="p-1">
         <Divider />
       </div>

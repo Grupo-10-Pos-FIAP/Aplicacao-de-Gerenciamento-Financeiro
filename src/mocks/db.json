@@ -54,25 +54,31 @@
   "transactions": [
     {
       "id": 1,
-      "amount": 150.75,
+      "amount": 450.5,
       "currency": "BRL",
-      "description": "Compra no Supermercado",
-      "date": "2024-01-15T14:30:00Z",
+      "description": "Compra no Supermercado da maria",
+      "date": "2024-01-12T03:00:00.000Z",
       "type": "expense",
       "category": "alimentacao",
       "status": "completed",
-      "paymentMethod": "credit_card"
+      "paymentMethod": "1",
+      "from": "Conta Principal",
+      "to": "Supermercado Pague Menos",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 2,
-      "amount": 2500,
+      "amount": 2502.59,
       "currency": "BRL",
-      "description": "Salário",
-      "date": "2024-01-05T08:00:00Z",
+      "description": "Salário 2",
+      "date": "2024-01-16T03:00:00.000Z",
       "type": "income",
       "category": "salario",
       "status": "completed",
-      "paymentMethod": "bank_transfer"
+      "paymentMethod": "4",
+      "from": "Empresa Fictícia S.A.",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 4,
@@ -83,7 +89,10 @@
       "type": "expense",
       "category": "transporte",
       "status": "completed",
-      "paymentMethod": "credit_card"
+      "paymentMethod": "3",
+      "from": "Conta Principal",
+      "to": "Posto Shell",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 5,
@@ -94,7 +103,10 @@
       "type": "expense",
       "category": "moradia",
       "status": "completed",
-      "paymentMethod": "bank_transfer"
+      "paymentMethod": "4",
+      "from": "Conta Principal",
+      "to": "Imobiliária Central",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 6,
@@ -105,7 +117,10 @@
       "type": "income",
       "category": "renda_extra",
       "status": "completed",
-      "paymentMethod": "pix"
+      "paymentMethod": "5",
+      "from": "Cliente Freelance",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 7,
@@ -116,7 +131,10 @@
       "type": "expense",
       "category": "saude",
       "status": "completed",
-      "paymentMethod": "debit_card"
+      "paymentMethod": "6",
+      "from": "Conta Principal",
+      "to": "Drogaria São Paulo",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 8,
@@ -127,7 +145,10 @@
       "type": "expense",
       "category": "alimentacao",
       "status": "completed",
-      "paymentMethod": "credit_card"
+      "paymentMethod": "7",
+      "from": "Conta Principal",
+      "to": "Restaurante Sabor Divino",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 9,
@@ -138,7 +159,10 @@
       "type": "expense",
       "category": "investimentos",
       "status": "completed",
-      "paymentMethod": "bank_transfer"
+      "paymentMethod": "8",
+      "from": "Conta Principal",
+      "to": "Corretora XP",
+      "bank": "Banco Invest Plus"
     },
     {
       "id": 10,
@@ -149,7 +173,10 @@
       "type": "income",
       "category": "renda_extra",
       "status": "pending",
-      "paymentMethod": "pix"
+      "paymentMethod": "1",
+      "from": "Comprador OLX",
+      "to": "Conta Principal",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 5000,
@@ -159,8 +186,11 @@
       "type": "expense",
       "category": "pix",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 11
+      "paymentMethod": "1",
+      "id": 11,
+      "from": "Conta Principal",
+      "to": "Minha Outra Conta",
+      "bank": "Outro Banco"
     },
     {
       "amount": 555,
@@ -170,8 +200,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix-credito",
-      "id": 12
+      "paymentMethod": "9",
+      "id": 12,
+      "from": "Cartão de Crédito",
+      "to": "Maria Silva",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 10,
@@ -181,8 +214,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix-credito",
-      "id": 13
+      "paymentMethod": "1",
+      "id": 13,
+      "from": "Cartão de Crédito",
+      "to": "João Santos",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 500,
@@ -192,8 +228,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 14
+      "paymentMethod": "2",
+      "id": 14,
+      "from": "Cartão de Crédito",
+      "to": "Ana Oliveira",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 1,
@@ -203,8 +242,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 15
+      "paymentMethod": "1",
+      "id": 15,
+      "from": "Cartão de Crédito",
+      "to": "Pedro Costa",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 250,
@@ -214,8 +256,11 @@
       "type": "expense",
       "category": "emprestimo-financiamento",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 16
+      "paymentMethod": "1",
+      "id": 16,
+      "from": "Empréstimo Pessoal",
+      "to": "Conta Principal",
+      "bank": "Financeira CredFácil"
     },
     {
       "amount": 50,
@@ -225,8 +270,11 @@
       "type": "expense",
       "category": "emprestimo-financiamento",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 17
+      "paymentMethod": "1",
+      "id": 17,
+      "from": "Empréstimo Pessoal",
+      "to": "Conta Principal",
+      "bank": "Financeira CredFácil"
     },
     {
       "amount": 25,
@@ -236,8 +284,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 18
+      "paymentMethod": "1",
+      "id": 18,
+      "from": "Cartão de Crédito",
+      "to": "Carla Rodrigues",
+      "bank": "Banco Invest Plus"
     },
     {
       "amount": 550,
@@ -247,8 +298,11 @@
       "type": "expense",
       "category": "pix-credito",
       "status": "completed",
-      "paymentMethod": "pix",
-      "id": 19
+      "paymentMethod": "1",
+      "id": 19,
+      "from": "Cartão de Crédito",
+      "to": "Lucas Almeida",
+      "bank": "Banco Invest Plus"
     }
   ],
   "transaction-types": [

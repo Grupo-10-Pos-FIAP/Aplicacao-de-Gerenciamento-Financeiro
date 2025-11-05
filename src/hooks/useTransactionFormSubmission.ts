@@ -60,7 +60,7 @@ export const useTransactionFormSubmission = (onSuccess?: () => void) => {
       type: 'expense',
       category: formData.transactionType,
       status: 'completed',
-      paymentMethod: 'pix', // Mapeamento seguro, assumindo 'pix' como padrão para transferências
+      paymentMethod: 'pix',
     };
 
     try {
