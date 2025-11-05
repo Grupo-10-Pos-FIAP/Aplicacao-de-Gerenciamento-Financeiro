@@ -7,9 +7,8 @@ import {
   IconButton,
   Text,
 } from '@grupo10-pos-fiap/design-system';
-import { DeleteTransactionModal } from '@app/transaction/components/DeleteTransactionModal';
-import { Transaction } from '@types/transaction';
 import { DeleteTransactionModalUI } from '@app/transaction/components/DeleteTransactionModal/DeleteTransactionModal.presentational';
+import DetailsDialog from '@components/DetailsDialog';
 
 interface ExtractCardProps {
   type: 'expense' | 'income';
@@ -64,6 +63,10 @@ const ExtractCard = ({ type, value }: ExtractCardProps) => {
         <Icon name={'SquareMenu'} color="gray600" size="small" />
         Detalhes
       </Button>
+      <DetailsDialog
+        isOpen={isOpenEditTransactions}
+        onClose={() => setIsOpenEditTransactions(false)}
+      />
       <div className="p-1">
         <Divider />
       </div>
